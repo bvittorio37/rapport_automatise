@@ -1,0 +1,56 @@
+
+{% extends 'template.html.twig' %}
+{% block pageName %} 
+ Utilisateurs
+{% endblock %}
+  {% block javascript %}
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"></link>
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js">
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
+ {% endblock %}
+
+{% block body %}
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <div class="card card-primary">
+                <div class="card-header">
+                    <h1 class="card-title">Ajouter un nouvel utilisateur</h1>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                {{ form_start(form) }}
+                    <div class="card-body">
+                    <div class="form-group">
+                         {{ form_row(form.no_mat, {label: 'N° Matricule'}) }}
+                    </div>
+                    <div class="form-group">
+                         {{ form_row(form.name, {label: 'Nom'}) }}
+                    </div>
+                    <div class="form-group">
+                         {{ form_row(form.roles, {label: 'Roles'}) }}
+                    </div>
+                    <div class="form-group">
+                         {{ form_row(form.password, {label: 'Mot de Passe'}) }}
+                    </div>
+
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Modifier</button>
+                    </div>
+                {{ form_end(form) }}
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+</section>
+
+
+
+{% endblock %}
+

@@ -1,0 +1,139 @@
+{% extends 'template.html.twig' %}
+{% block pageName %} 
+ Utilisateurs
+{% endblock %}
+
+{% block body %}
+    <section class="content">
+      <div class="container-fluid">
+              <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title mr-5">Listes des Utilisateurs</h3>
+                
+                <div class="card-tools">
+                <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Recherche">
+
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+                <div class="mt-3 input-group input-group-sm">
+                    <a class="btn btn-success text-light" href ="{{ path('utilisateur.ajout') }}"><i class="fas fa-plus"> Nouvel utilisateur</i> </a>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0" style="height: 300px;">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>N° matricule</th>
+                      <th>Utilisateur</th>
+                      <th>Date</th>
+                      <th>Rôle</th>
+                      <th>Etat<th>
+                      <th></th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                {% for user in utilisateurs %}
+
+
+                  {% if user.etat %}
+                      {% set activation = "Actif" %}
+                      {% set action = "Désactiver" %}
+                      {%  set icon = "fa-lock" %}
+                  {% else %}
+                      {% set activation = "Innactif" %}
+                      {% set action = "Activer" %}
+                      {%  set icon = "fa-unlock" %}
+                  {% endif %}
+
+
+                    <tr>
+                        <td>{{ user.noMat }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>11-7-2014</td>
+                        <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                        
+                        <td id="activation{{user.id}}">{{ activation }}<td>
+                        <td>
+                          <!--  path('utilisateur.activer', {'id': user.id})  show-->
+                          <!--  path('utilisateur.editer', {'id': user.id}) edit-->
+                             <a class="activation btn btn-success btn-sm" id="uti" data-uti="{{user.id}}"  >
+                                <i id="icon{{user.id}}" class="fas {{ icon }}"> </i> 
+                                <span id="action{{user.id}}">{{ action }}</span>  
+                            </a>
+                          </td>
+                          <td>
+                            <a class="btn btn-info btn-sm" href="{{path('utilisateur.editer', {'id': user.id})}}">
+                              <i class="fas fa-pencil-alt">
+                              </i>
+                              Editer
+                          </a>
+                        </td>
+                    </tr>
+                {% else %}
+            <tr>
+                <td colspan="5" >Aucun utilisateur</td>
+            </tr>
+        {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+{% endblock %}
+{% block javascript %}
+<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+  <script language = "javascript">  
+      
+        $(document).ready(function(){
+                $('.activation').on('click', function(evt){
+                var idUti = $(this).data('uti');
+                var icon = "#icon"+idUti;
+                var action = "#action"+idUti;
+                var activation = "#activation"+idUti;
+               
+                    $.ajax({  
+                    
+                     url:        Routing.generate('utilisateur.activer', { id: idUti} ),
+                    type:       'POST',   
+                    dataType:   'json',  
+                    async:      true, 
+                    
+                    success: function(data, status) { 
+                      //data=true;
+                      if(data==true){
+                       $(action).html("Désactiver");
+                       $(activation).html("Actif");
+                       $(icon).attr("class","fas fa-lock");
+                        
+
+                      } 
+                     else{
+                         $(action).html("Activer");
+                         $(activation).html("Innactif");
+                          $(icon).attr("class","fas fa-unlock");
+                      }
+                    },
+                    error : function(xhr, textStatus, errorThrown) {  
+                        
+                        alert('Ajax request failed.');  
+                    }              
+                });
+            });
+        });
+     
+   </script> 
+{% endblock %}

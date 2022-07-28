@@ -56,6 +56,21 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->add($user, true);
     }
 
+    public function isActif($matricule): bool
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u.etat')
+            ->andWhere('u.no_mat = :val')
+            ->setParameter('val', $matricule)
+            ->getQuery()
+            ->getSingleScalarResult();
+        }
+
+
+
+
+
+
 //    /**
 //     * @return User[] Returns an array of User objects
 //     */

@@ -8,11 +8,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AcceuilController extends AbstractController
 {
-    #[Route('/acceuil', name: 'app_acceuil')]
+    #[Route('/acceuil', name: 'acceuil')]
     public function index(): Response
     {
-        return $this->render('acceuil/index.html.twig', [
-            'controller_name' => 'AcceuilController',
-        ]);
+       // dd( hash('sha256', 1234));
+       return $this->render('acceuil/template.html.twig');
     }
+
+    
+    /*
+    #[Route(path: '/test', name: 'test')]
+    public function test(): Response
+    {
+        return $this->render('acceuil/template.html.twig');
+    }*/
 }
