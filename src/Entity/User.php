@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -32,6 +34,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean', nullable: false)]
     private $etat;
+
+    #[ORM\ManyToOne(targetEntity: Site::class, inversedBy: 'users')]
+    private $site;
+
+    #[ORM\OneToMany(mappedBy: 'Utilisateur', targetEntity: Rapport::class)]
+    private $rapports;
+
+    public function __construct()
+    {
+        $this->rapports = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -125,6 +138,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEtat(?bool $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getSite(): ?Site
+    {
+        return $this->site;
+    }
+
+    public function setSite(?Site $site): self
+    {
+        $this->site = $site;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Rapport>
+     */
+    public function getRapports(): Collection
+    {
+        return $this->rapports;
+    }
+
+    public function addRapport(Rapport $rapport): self
+    {
+        if (!$this->rapports->contains($rapport)) {
+            $this->rapports[] = $rapport;
+            $rapport->setUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRapport(Rapport $rapport): self
+    {
+        if ($this->rapports->removeElement($rapport)) {
+            // set the owning side to null (unless already changed)
+            if ($rapport->getUtilisateur() === $this) {
+                $rapport->setUtilisateur(null);
+            }
+        }
 
         return $this;
     }
