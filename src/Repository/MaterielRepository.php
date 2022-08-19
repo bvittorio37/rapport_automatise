@@ -44,10 +44,10 @@ class MaterielRepository extends ServiceEntityRepository
 //     */
 //    public function findByExampleField($value): array
 //    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
+//        return $this->createQueryBuilder('c')
+//            ->andWhere('c.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
+//            ->orderBy('c.id', 'ASC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()
@@ -56,8 +56,8 @@ class MaterielRepository extends ServiceEntityRepository
 
 //    public function findOneBySomeField($value): ?Materiel
 //    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
+//        return $this->createQueryBuilder('c')
+//            ->andWhere('c.exampleField = :val')
 //            ->setParameter('val', $value)
 //            ->getQuery()
 //            ->getOneOrNullResult()

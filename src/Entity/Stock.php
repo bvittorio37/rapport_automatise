@@ -13,9 +13,9 @@ class Stock
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: Consommable::class)]
+    #[ORM\ManyToOne(targetEntity: Materiel::class)]
     #[ORM\JoinColumn(nullable: false)]
-    private $consommable;
+    private $materiel;
 
     #[ORM\ManyToOne(targetEntity: typeStock::class)]
     #[ORM\JoinColumn(nullable: false)]
@@ -37,14 +37,14 @@ class Stock
         return $this->id;
     }
 
-    public function getConsommable(): ?Consommable
+    public function getMateriel(): ?Materiel
     {
-        return $this->consommable;
+        return $this->materiel;
     }
 
-    public function setConsommable(?Consommable $consommable): self
+    public function setMateriel(?Materiel $materiel): self
     {
-        $this->consommable = $consommable;
+        $this->materiel = $materiel;
 
         return $this;
     }

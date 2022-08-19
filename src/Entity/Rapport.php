@@ -37,7 +37,7 @@ class Rapport
     #[ORM\JoinColumn(nullable: false)]
     private $utilisateur;
 
-    #[ORM\ManyToOne(targetEntity: typeRapport::class, inversedBy: 'rapports')]
+    #[ORM\ManyToOne(targetEntity: TypeRapport::class, inversedBy: 'rapports')]
     #[ORM\JoinColumn(nullable: false)]
     private $typeRapport;
 

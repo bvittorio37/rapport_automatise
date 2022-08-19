@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Consommable;
+use App\Entity\CategorieMateriel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Consommable>
+ * @extends ServiceEntityRepository<CategorieMateriel>
  *
- * @method Consommable|null find($id, $lockMode = null, $lockVersion = null)
- * @method Consommable|null findOneBy(array $criteria, array $orderBy = null)
- * @method Consommable[]    findAll()
- * @method Consommable[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method CategorieMateriel|null find($id, $lockMode = null, $lockVersion = null)
+ * @method CategorieMateriel|null findOneBy(array $criteria, array $orderBy = null)
+ * @method CategorieMateriel[]    findAll()
+ * @method CategorieMateriel[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ConsommableRepository extends ServiceEntityRepository
+class CategorieMaterielRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Consommable::class);
+        parent::__construct($registry, CategorieMateriel::class);
     }
 
-    public function add(Consommable $entity, bool $flush = false): void
+    public function add(CategorieMateriel $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class ConsommableRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Consommable $entity, bool $flush = false): void
+    public function remove(CategorieMateriel $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class ConsommableRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Consommable[] Returns an array of Consommable objects
+//     * @return CategorieMateriel[] Returns an array of CategorieMateriel objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class ConsommableRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Consommable
+//    public function findOneBySomeField($value): ?CategorieMateriel
 //    {
 //        return $this->createQueryBuilder('c')
 //            ->andWhere('c.exampleField = :val')
