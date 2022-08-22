@@ -1,0 +1,48 @@
+
+{% extends 'template.html.twig' %}
+{% block pageName %} 
+Stock
+{% endblock %}
+
+{% block javascript %}
+{% endblock %}
+
+{% block body %}
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <div class="card card-primary">
+                <div class="card-header">
+                    <h1 class="card-title">Entrée de nouveau materiel</h1>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                {{ form_start(form) }}
+                    <div class="card-body">
+                    <div class="form-group">
+                         {{ form_row(form.materiel, {label: 'Materiel','attr': {'class': 'form-control'} }) }}
+                    </div>
+                    <div class="form-group">
+                         {{ form_row(form.entree, {label: 'Quantite'}) }}
+                    </div>
+                    <div class="form-group">
+                         {{ form_row(form.intitule, {label: 'Intitulé'}) }}
+                    </div>
+                   
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Valider</button>
+                    </div>
+                {{ form_end(form) }}
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+</section>
+
+
+
+{% endblock %}
+

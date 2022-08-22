@@ -32,4 +32,8 @@ class TypeStock
 
         return $this;
     }
+    public function __toString()
+    {
+        return $this->typeStock;
+    }
 }

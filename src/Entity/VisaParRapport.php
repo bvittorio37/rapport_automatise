@@ -17,7 +17,7 @@ class VisaParRapport
     #[ORM\JoinColumn(nullable: false)]
     private $rapport;
 
-    #[ORM\ManyToOne(targetEntity: visa::class)]
+    #[ORM\ManyToOne(targetEntity: Visa::class)]
     #[ORM\JoinColumn(nullable: false)]
     private $visa;
 

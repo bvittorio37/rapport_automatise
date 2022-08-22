@@ -17,7 +17,7 @@ class Stock
     #[ORM\JoinColumn(nullable: false)]
     private $materiel;
 
-    #[ORM\ManyToOne(targetEntity: typeStock::class)]
+    #[ORM\ManyToOne(targetEntity: TypeStock::class)]
     #[ORM\JoinColumn(nullable: false)]
     private $typeStock;
 
@@ -31,6 +31,9 @@ class Stock
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $sortie;
+
+    #[ORM\Column(type: 'string', length: 100)]
+    private $intitule;
 
     public function getId(): ?int
     {
@@ -96,6 +99,18 @@ class Stock
     {
         $this->sortie = $sortie;
         
+        return $this;
+    }
+
+    public function getIntitule(): ?string
+    {
+        return $this->intitule;
+    }
+
+    public function setIntitule(string $intitule): self
+    {
+        $this->intitule = $intitule;
+
         return $this;
     }
 }
