@@ -21,20 +21,19 @@ Stock
                 <!-- form start -->
                 {{ form_start(form) }}
                     <div class="card-body">
-                    <div class="form-group">
-                         {{ form_row(form.materiel, {label: 'Materiel','attr': {'class': 'form-control'} }) }}
-                    </div>
-                    <div class="form-group">
-                         {{ form_row(form.entree, {label: 'Quantite'}) }}
-                    </div>
-                    <div class="form-group">
-                         {{ form_row(form.intitule, {label: 'Intitulé'}) }}
-                    </div>
-                   
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Valider</button>
-                    </div>
+                        <div class="form-group">
+                            {{ form_row(form.materiel, {label: 'Materiel','attr': {'class': 'form-control'} }) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.entree, {label: 'Quantite'}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.intitule, {label: 'Intitulé'}) }}
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Valider</button>
+                        </div>
                 {{ form_end(form) }}
                 </div>
             </div>

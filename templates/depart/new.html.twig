@@ -1,0 +1,53 @@
+
+{% extends 'template.html.twig' %}
+{% block pageName %} 
+Rapport
+{% endblock %}
+  {% block javascript %}
+ {% endblock %}
+
+{% block body %}
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <div class="card card-primary">
+                <div class="card-header">
+                    <h1 class="card-title">Effectuer un rapport de vol départ</h1>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <div class="card-body">
+                {{ form_start(form) }}
+                    <div class="card-body">
+                    <div class="form-group">
+                         {{ form_row(form.numeroVol, {label: 'N° de vol'}) }}
+                    </div>
+                    <div class="form-group">
+                         {{ form_row(form.datePrevue, {label: 'Date prévue'}) }}
+                    </div>
+                    <div class="form-group">
+                         {{ form_row(form.dateVol, {label: 'Date vol'}) }}
+                    </div>
+                    <div class="form-group">
+                         {{ form_row(form.remarque, {label: 'Remarque'}) }}
+                    </div>
+                    <div class="form-group">
+
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                    </div>
+                {{ form_end(form) }}
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}
+

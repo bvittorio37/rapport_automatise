@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TypeRapport index{% endblock %}
+
+{% block body %}
+    <h1>TypeRapport index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>TypeRapport</th>
+                <th>Remarque</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for type_rapport in type_rapports %}
+            <tr>
+                <td>{{ type_rapport.id }}</td>
+                <td>{{ type_rapport.typeRapport }}</td>
+                <td>{{ type_rapport.remarque }}</td>
+                <td>
+                    <a href="{{ path('app_type_rapport_show', {'id': type_rapport.id}) }}">show</a>
+                    <a href="{{ path('app_type_rapport_edit', {'id': type_rapport.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_type_rapport_new') }}">Create new</a>
+{% endblock %}

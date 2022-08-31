@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit TypeRapport{% endblock %}
+
+{% block body %}
+    <h1>Edit TypeRapport</h1>
+
+    {{ include('type_rapport/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_type_rapport_index') }}">back to list</a>
+
+    {{ include('type_rapport/_delete_form.html.twig') }}
+{% endblock %}

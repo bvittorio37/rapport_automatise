@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rapport{% endblock %}
+
+{% block body %}
+    <div class="row mt-5">
+        <div class="col-12 mb-5">
+            <h3>Rapport de vol Départ du {{ rapport.dateRapport ? rapport.dateRapport|date('Y-m-d H:i:s') : '' }}</h3>
+        </div>
+    
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Numero de vol</th>
+                <td>{{ rapport.numeroVol }}</td>
+            </tr>
+            <tr>
+                <th>Date de rapport</th>
+                <td>{{ rapport.dateRapport ? rapport.dateRapport|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date prévue</th>
+                <td>{{ rapport.datePrevue ? rapport.datePrevue|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date de Vol</th>
+                <td>{{ rapport.dateVol ? rapport.dateVol|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Remarque</th>
+                <td>{{ rapport.remarque }}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    </div>
+
+{% endblock %}

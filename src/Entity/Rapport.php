@@ -21,14 +21,11 @@ class Rapport
     #[ORM\Column(type: 'datetime')]
     private $dateRapport;
 
-    #[ORM\Column(type: 'datetime', nullable: true)]
-    private $dateArrive;
-
-    #[ORM\Column(type: 'datetime', nullable: true)]
+    #[ORM\Column(type: 'datetime', nullable: false)]
     private $datePrevue;
 
-    #[ORM\Column(type: 'datetime', nullable: true)]
-    private $dateDepart;
+    #[ORM\Column(type: 'datetime', nullable: false)]
+    private $dateVol;
 
     #[ORM\Column(type: 'text', nullable: true)]
     private $remarque;
@@ -81,18 +78,6 @@ class Rapport
         return $this;
     }
 
-    public function getDateArrive(): ?\DateTimeInterface
-    {
-        return $this->dateArrive;
-    }
-
-    public function setDateArrive(?\DateTimeInterface $dateArrive): self
-    {
-        $this->dateArrive = $dateArrive;
-
-        return $this;
-    }
-
     public function getDatePrevue(): ?\DateTimeInterface
     {
         return $this->datePrevue;
@@ -105,14 +90,14 @@ class Rapport
         return $this;
     }
 
-    public function getDateDepart(): ?\DateTimeInterface
+    public function getDateVol(): ?\DateTimeInterface
     {
-        return $this->dateDepart;
+        return $this->dateVol;
     }
 
-    public function setDateDepart(?\DateTimeInterface $dateDepart): self
+    public function setDateVol(?\DateTimeInterface $dateVol): self
     {
-        $this->dateDepart = $dateDepart;
+        $this->dateVol = $dateVol;
 
         return $this;
     }

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TypeRapport{% endblock %}
+
+{% block body %}
+    <h1>Create new TypeRapport</h1>
+
+    {{ include('type_rapport/_form.html.twig') }}
+
+    <a href="{{ path('app_type_rapport_index') }}">back to list</a>
+{% endblock %}

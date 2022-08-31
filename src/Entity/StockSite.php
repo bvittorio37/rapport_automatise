@@ -6,7 +6,7 @@ use App\Repository\RapportStockRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RapportStockRepository::class)]
-class RapportStock
+class StockSite
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -14,7 +14,7 @@ class RapportStock
     private $id;
 
     #[ORM\ManyToOne(targetEntity: rapport::class)]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private $rapport;
 
     #[ORM\ManyToOne(targetEntity: Materiel::class)]
