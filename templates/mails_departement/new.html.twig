@@ -1,0 +1,50 @@
+
+{% extends 'template.html.twig' %}
+{% block pageName %} 
+  Mail Par Departement
+{% endblock %}
+  {% block javascript %}
+ {% endblock %}
+
+{% block body %}
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <div class="card card-primary">
+                <div class="card-header">
+                    <h1 class="card-title">Entrer un nouveau mail par département</h1>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <div class="card-body">
+                {{ form_start(form) }}
+                    <div class="card-body">
+                    <div class="form-group">
+                         {{ form_row(form.Departement, {label: 'Département', 'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                         {{ form_row(form.nomEmp, {label: "Nom de L'employé"}) }}
+                    </div>
+                    <div class="form-group">
+                         {{ form_row(form.email, {label: 'email'}) }}
+                    </div>
+                    <div class="form-group">
+
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                    </div>
+                {{ form_end(form) }}
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}
+

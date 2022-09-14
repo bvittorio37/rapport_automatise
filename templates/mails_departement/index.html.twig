@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}MailsDepartement index{% endblock %}
+
+{% block body %}
+    <h1>MailsDepartement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NomEmp</th>
+                <th>Email</th>
+                <th>Departement</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for mails_departement in mails_departements %}
+            <tr>
+                <td>{{ mails_departement.id }}</td>
+                <td>{{ mails_departement.nomEmp }}</td>
+                <td>{{ mails_departement.email }}</td>
+                <td>{{ mails_departement.departement }}</td>
+                <td>
+                    <a href="{{ path('app_mails_departement_show', {'id': mails_departement.id}) }}">show</a>
+                    <a href="{{ path('app_mails_departement_edit', {'id': mails_departement.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_mails_departement_new') }}">Create new</a>
+{% endblock %}
