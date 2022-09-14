@@ -21,11 +21,13 @@
         {% for rapport in rapports %}
             <tr>
                 <td>{{ rapport.id }}</td>
-                <td>{{ rapport.numeroVol }}</td>
-                <td>{{ rapport.dateRapport ? rapport.dateRapport|date('Y-m-d H:i:s') : '' }}</td>
+
                 <td>{{ rapport.datePrevue ? rapport.datePrevue|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ rapport.dateVol ? rapport.dateVol|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ rapport.remarque }}</td>
+                <td>
+                    <a href="{{ path('app_depart_show', {'id': rapport.id}) }}">show</a>
+                    <a href="{{ path('app_depart_edit', {'id': rapport.id}) }}">edit</a>
+                </td>
             </tr>
         {% else %}
             <tr>
