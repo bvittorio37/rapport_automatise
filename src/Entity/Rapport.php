@@ -15,16 +15,13 @@ class Rapport
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 15)]
+    #[ORM\Column(type: 'string', length: 15, nullable: true)]
     private $numeroVol;
 
-    #[ORM\Column(type: 'datetime')]
-    private $dateRapport;
-
-    #[ORM\Column(type: 'datetime', nullable: false)]
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private $datePrevue;
 
-    #[ORM\Column(type: 'datetime', nullable: false)]
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private $dateVol;
 
     #[ORM\Column(type: 'text', nullable: true)]
@@ -40,6 +37,15 @@ class Rapport
 
     #[ORM\OneToMany(mappedBy: 'rapport', targetEntity: VisaParRapport::class)]
     private $visaParRapports;
+
+    #[ORM\Column(type: 'datetime')]
+    private $debutService;
+
+    #[ORM\Column(type: 'datetime')]
+    private $finService;
+
+    #[ORM\Column(type: 'string', length: 150, nullable: true)]
+    private $nomPdf;
 
     public function __construct()
     {
@@ -66,17 +72,6 @@ class Rapport
         return $this;
     }
 
-    public function getDateRapport(): ?\DateTimeInterface
-    {
-        return $this->dateRapport;
-    }
-
-    public function setDateRapport(\DateTimeInterface $dateRapport): self
-    {
-        $this->dateRapport = $dateRapport;
-
-        return $this;
-    }
 
     public function getDatePrevue(): ?\DateTimeInterface
     {
@@ -164,6 +159,42 @@ class Rapport
                 $visaParRapport->setRapport(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDebutService(): ?\DateTimeInterface
+    {
+        return $this->debutService;
+    }
+
+    public function setDebutService(\DateTimeInterface $debutService): self
+    {
+        $this->debutService = $debutService;
+
+        return $this;
+    }
+
+    public function getFinService(): ?\DateTimeInterface
+    {
+        return $this->finService;
+    }
+
+    public function setFinService(\DateTimeInterface $finService): self
+    {
+        $this->finService = $finService;
+
+        return $this;
+    }
+
+    public function getNomPdf(): ?string
+    {
+        return $this->nomPdf;
+    }
+
+    public function setNomPdf(?string $nomPdf): self
+    {
+        $this->nomPdf = $nomPdf;
 
         return $this;
     }

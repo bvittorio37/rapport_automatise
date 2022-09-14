@@ -29,9 +29,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $password;
 
-    #[ORM\Column(type: 'string', length: 150)]
-    private $name;
-
     #[ORM\Column(type: 'boolean', nullable: false)]
     private $etat;
 
@@ -40,6 +37,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'Utilisateur', targetEntity: Rapport::class)]
     private $rapports;
+
+    #[ORM\Column(type: 'string', length: 150)]
+    private $noms;
+
+    #[ORM\Column(type: 'string', length: 150)]
+    private $prenoms;
+
+    #[ORM\Column(type: 'string', length: 105, nullable: true)]
+    private $email;
 
     public function __construct()
     {
@@ -115,6 +121,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
+    /*     
     public function getName(): ?string
     {
         return $this->name;
@@ -124,10 +131,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->name = $name;
         return $this;
-    }
+    } */
+
     public function __toString()
     {
-        return $this->name ."_".$this->no_mat ;
+        return $this->no_mat."_".$this->prenoms;
     }
 
     public function isEtat(): ?bool
@@ -180,6 +188,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $rapport->setUtilisateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNoms(): ?string
+    {
+        return $this->noms;
+    }
+
+    public function setNoms(?string $noms): self
+    {
+        $this->noms = $noms;
+
+        return $this;
+    }
+
+    public function getPrenoms(): ?string
+    {
+        return $this->prenoms;
+    }
+
+    public function setPrenoms(?string $prenoms): self
+    {
+        $this->prenoms = $prenoms;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): self
+    {
+        $this->email = $email;
 
         return $this;
     }

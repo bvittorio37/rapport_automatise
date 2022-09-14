@@ -14,7 +14,7 @@ class Rapport1Type extends AbstractType
     {
         $builder
             ->add('numeroVol')
-            ->add('datePrevue', DateTimeType::class, array(
+            ->add('debutService', DateTimeType::class, array(
                 'required' => true,
                 'widget' => 'single_text',
                 'attr' => [
@@ -23,12 +23,30 @@ class Rapport1Type extends AbstractType
                     'html5' => false,
                 ],
                 ))
-            ->add('dateVol', DateTimeType::class, array(
+            ->add('finService', DateTimeType::class, array(
                 'required' => true,
                 'widget' => 'single_text',
                 'attr' => [
                     'class' => 'form-control input-inline datetimepicker',
                    // 'data-provide' => 'datetimepicker',
+                    'html5' => false,
+                ],
+                ))
+            ->add('datePrevue', DateTimeType::class, array(
+                'required' => false,
+                'widget' => 'single_text',
+                'attr' => [
+                    'class' => 'form-control input-inline datetimepicker',
+                    // 'data-provide' => 'datetimepicker',
+                    'html5' => false,
+                ],
+                ))
+            ->add('dateVol', DateTimeType::class, array(
+                'required' => false,
+                'widget' => 'single_text',
+                'attr' => [
+                    'class' => 'form-control input-inline datetimepicker',
+                    // 'data-provide' => 'datetimepicker',
                     'html5' => false,
                 ],
                 ))
