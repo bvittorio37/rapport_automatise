@@ -1,7 +1,16 @@
+
 {% extends 'template.html.twig' %}
 {% block pageName %} 
  Utilisateurs
 {% endblock %}
+  {% block javascript %}
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"></link>
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js">
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
+ {% endblock %}
 
 {% block body %}
 <section class="content">
@@ -15,29 +24,19 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                {{ form_start(registrationForm) }}
+                {{ form_start(form) }}
                     <div class="card-body">
                     <div class="form-group">
-                         {{ form_row(registrationForm.no_mat, {label: 'N° Matricule'}) }}
+                         <h3>{{user}}</h3>
                     </div>
                     <div class="form-group">
-                         {{ form_row(registrationForm.noms, {label: 'Noms'}) }}
+                         {{ form_row(form.site, {label: 'Site d`affectation'}) }}
                     </div>
-                    <div class="form-group">
-                         {{ form_row(registrationForm.prenoms, {label: 'Prénoms'}) }}
-                    </div>
-                     <div class="form-group">
-                         {{ form_row(registrationForm.email, {label: 'Email'}) }}
-                    </div>
-                    <div class="form-group">
-                         {{ form_row(registrationForm.plainPassword, {label: 'Mot de Passe'}) }}
-                    </div>
-
                     <!-- /.card-body -->
                     <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                    <button type="submit" class="btn btn-primary">Affecter</button>
                     </div>
-                {{ form_end(registrationForm) }}
+                {{ form_end(form) }}
                 </div>
             </div>
             <!-- /.card -->
@@ -47,3 +46,4 @@
 
 
 {% endblock %}
+

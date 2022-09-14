@@ -29,9 +29,10 @@
                 <table class="table table-hover text-nowrap">
                   <thead>
                     <tr>
-                      <th>N° matricule</th>
-                      <th>Utilisateur</th>
-                      <th>Date</th>
+                      <th>Matricule</th>
+                      <th>Noms</th>
+                      <th>Prénoms</th>
+                      <th>Site</th>
                       <th>Rôle</th>
                       <th>Etat<th>
                       <th></th>
@@ -55,8 +56,9 @@
 
                     <tr>
                         <td>{{ user.noMat }}</td>
-                        <td>{{ user.name }}</td>
-                        <td>11-7-2014</td>
+                        <td>{{ user.noms }}</td>
+                        <td>{{ user.prenoms }}</td>
+                        <td>{{ user.site }}</td>
                         <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
                         
                         <td id="activation{{user.id}}">{{ activation }}<td>
@@ -68,12 +70,21 @@
                                 <span id="action{{user.id}}">{{ action }}</span>  
                             </a>
                           </td>
-                          <td>
+                          {# <td>
                             <a class="btn btn-info btn-sm" href="{{path('utilisateur.editer', {'id': user.id})}}">
                               <i class="fas fa-pencil-alt">
                               </i>
                               Editer
-                          </a>
+                            </a>
+                        </td> #}
+                        <td>
+          
+                              <a class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown">
+                                <div class="dropdown-menu" >
+                                  <a class="dropdown-item" href="{{path('utilisateur.editer', {'id': user.id})}}">Editer</a>
+                                  <a class="dropdown-item" href="{{path('utilisateur.affecter', {'id': user.id})}}">Affecter</a>
+                                </div>
+                              <a>
                         </td>
                     </tr>
                 {% else %}
