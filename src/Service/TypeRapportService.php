@@ -22,7 +22,6 @@ class TypeRapportService
     {
        return $this->typeRipo->findOneBy(['typeRapport' => 'Départ']);
     }
-
 }
 
 ?>
