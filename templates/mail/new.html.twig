@@ -1,0 +1,64 @@
+
+{% extends 'template.html.twig' %}
+{% block pageName %} 
+Envoie Mail
+{% endblock %}
+  {% block javascript %}
+ {% endblock %}
+
+{% block body %}
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h1 class="card-title">Envoyer le rapport</h1>
+                    
+
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <div class="card-body">
+
+                {{ form_start(form) }}
+                    <div class="card-body">
+                        <div class="col-md-4 form-group">
+                            {{ form_row(form.departement, {label: 'A:', 'attr': {'class': 'form-control'}}) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.cc, {label: "Cc:",'attr': {'placeholder': 'email1;email2'}}) }}
+                        </div>
+                        <div class="col-md-6 form-group">
+                            {{ form_row(form.object) }}
+                        </div>
+                        <div class="form-group">
+                            {{ form_row(form.message, {label: "Message:",'attr': {'placeholder': 'Votre message...'}}) }}
+                        </div>
+                        {# <div class="form-group">
+                        <div class="btn btn-default btn-file">
+                            {{ form_row(form.pj) }}
+                        </div>
+                        </div>  #}
+                    </div>
+                <!-- /.card-body -->
+                    <div class="card-footer">
+                    <div class="float-right">
+                    <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Envoyer</button>
+                    </div>
+                    <button  class="btn btn-default"><i class="fas fa-times"></i> Annuler</button>
+                    </div>
+                <!-- /.card-footer -->
+              {{ form_end(form) }}
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}
+
