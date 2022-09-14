@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Entity\Rapport;
 use App\Form\Rapport1Type;
 use App\Repository\RapportRepository;
+use App\Service\RapportService;
 use App\Service\TypeRapportService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[Route('/depart')]
 class DepartController extends AbstractController
@@ -23,19 +25,26 @@ class DepartController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'app_depart_nouveau', methods: ['GET', 'POST'])]
-    public function new(Request $request, RapportRepository $rapportRepository, TypeRapportService $typeService): Response
+    public function new(Request $request, RapportRepository $rapportRepository, TypeRapportService $typeService,RapportService $rapportServe): Response
     {
         $rapport = new Rapport();
         $form = $this->createForm(Rapport1Type::class, $rapport);
         $form->handleRequest($request);
         //dd($typeService->getDepartType());
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid() && $this->getUser()) {
             $rapport->setUtilisateur($this->getUser());
             $rapport->setTypeRapport($typeService->getDepartType());
-            $rapport->setDateRapport(date_create(date("H:i:s")));
-            $rapportRepository->add($rapport, true);
-            return $this->redirectToRoute('app_depart_index', [], Response::HTTP_SEE_OTHER);
+            $nompdf=("rapport-de-vol-depart-".date("Y-m-d"));
+            $rapport->setNomPdf($nompdf);
+            //$rapport->setDateRapport(date_create(date("H:i:s")));
+            //$rapportRepository->add($rapport, true);
+            //dd($rapport);
+            /* var_dump($nompdf);
+            dd($nompdf); */
+            //$html=$this->generateUrl('app_depart_index',[],UrlGeneratorInterface::ABSOLUTE_URL);
+            //$pdf->send();
+            return $this->redirectToRoute('app_mail_new', ['id'=>2,'nompdf'=>$nompdf], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('depart/new.html.twig', [
@@ -76,7 +85,6 @@ class DepartController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$rapport->getId(), $request->request->get('_token'))) {
             $rapportRepository->remove($rapport, true);
         }
-
         return $this->redirectToRoute('app_depart_index', [], Response::HTTP_SEE_OTHER);
     }
 }

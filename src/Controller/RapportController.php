@@ -30,7 +30,6 @@ class RapportController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $rapportRepository->add($rapport, true);
-
             return $this->redirectToRoute('app_rapport_index', [], Response::HTTP_SEE_OTHER);
         }
 

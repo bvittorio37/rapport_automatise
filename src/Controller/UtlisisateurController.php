@@ -2,15 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\HistoriqueAffectation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\User;
+use App\Form\AffectationType;
 use App\Form\UserType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Form\RegistrationFormType;
+use App\Repository\HistoriqueAffectationRepository;
 use App\Security\AuthentificationAuthenticator;
 use App\Service\UtilisateurService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -62,6 +65,43 @@ class UtlisisateurController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+    #[Route('/{id}/affecter', name: 'utilisateur.affecter', methods: ['GET', 'POST'])]
+    public function affecter(Request $request, User $user, UserRepository $userRepository, HistoriqueAffectationRepository $histoRipo): Response
+    {
+        $form = $this->createForm(AffectationType::class, $user);
+        $form->handleRequest($request);
+        $ancienSite= $user->getSite();
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userRepository->add($user, true);
+            $historique = new HistoriqueAffectation();
+            $historique->setNom($user->getNoms());
+            $historique->setPrenom($user->getPrenoms());
+            $historique->setAncienSite($ancienSite);
+            $historique->setSiteAffectation($user->getSite());
+            $historique->setDateAffectation(date_create(date("H:i:s")));
+            $historique->setIsCourant(true);
+            $histoRipo->add($historique,true);
+            return $this->redirectToRoute('app_utilisateur', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('Utlisisateur/affectation.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
+    
+    }
+    
+    #[Route('/{id}/activer', name: 'utilisateur.activer', methods: ['GET', 'POST'], options: ['expose' => true])]
+    public function activer( Request $request, User $user, UserRepository $userRepository, UtilisateurService $utiServe): Response
+    {
+        if ($request->isXmlHttpRequest()|| $request->query->get('showJson') == 1) {
+            $retour= $utiServe->activation($user);     
+            return new JsonResponse($retour); 
+        }  
+        return $this->redirectToRoute('app_utilisateur', [], Response::HTTP_SEE_OTHER);
+    }
+    
 
     #[Route('/{id}/editer', name: 'utilisateur.editer', methods: ['GET', 'POST'])]
     public function edit(Request $request,UserPasswordHasherInterface $userPasswordHasher, User $user, UserRepository $userRepository): Response
@@ -86,19 +126,6 @@ class UtlisisateurController extends AbstractController
         ]);
     
     }
-    
-    #[Route('/{id}/activer', name: 'utilisateur.activer', methods: ['GET', 'POST'], options: ['expose' => true])]
-    public function activer( Request $request, User $user, UserRepository $userRepository, UtilisateurService $utiServe): Response
-    {
-        if ($request->isXmlHttpRequest()|| $request->query->get('showJson') == 1) {
-            $retour= $utiServe->activation($user);     
-            return new JsonResponse($retour); 
-        }  
-        return $this->redirectToRoute('app_utilisateur', [], Response::HTTP_SEE_OTHER);
-    }
-  
-
-           
 
     /*
     #[Route('/{id}', name: 'app_user_show', methods: ['GET'])]
