@@ -27,14 +27,14 @@
                 {{ form_start(form) }}
                     <div class="card-body">
                     <div class="form-group">
-                         <h3>{{user}}</h3>
+                         <h6>Affecter : {{user}} </h6>
                     </div>
                     <div class="form-group">
-                         {{ form_row(form.site, {label: 'Site d`affectation'}) }}
+                         {{ form_row(form.site, {label: "Site d'affectation", 'attr': {'class': 'form-control'}}) }}
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Affecter</button>
+                        <button type="submit" class="btn btn-primary">Affecter</button>           
                     </div>
                 {{ form_end(form) }}
                 </div>
