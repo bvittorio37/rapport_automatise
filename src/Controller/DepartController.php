@@ -17,10 +17,10 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 class DepartController extends AbstractController
 {
     #[Route('/', name: 'app_depart_index', methods: ['GET'])]
-    public function index(RapportRepository $rapportRepository): Response
+    public function index(RapportRepository $rapportRepository,TypeRapportService $typeService): Response
     {
         return $this->render('depart/index.html.twig', [
-            'rapports' => $rapportRepository->findAll(),
+            'rapports' => $rapportRepository->findBy(['utilisateur' => $this->getUser(),'typeRapport'=>$typeService->getDepartType()]),
         ]);
     }
 
@@ -37,13 +37,7 @@ class DepartController extends AbstractController
             $rapport->setTypeRapport($typeService->getDepartType());
             $nompdf=("rapport-de-vol-depart-".date("Y-m-d"));
             $rapport->setNomPdf($nompdf);
-            //$rapport->setDateRapport(date_create(date("H:i:s")));
-            //$rapportRepository->add($rapport, true);
-            //dd($rapport);
-            /* var_dump($nompdf);
-            dd($nompdf); */
-            //$html=$this->generateUrl('app_depart_index',[],UrlGeneratorInterface::ABSOLUTE_URL);
-            //$pdf->send();
+           // $rapportRepository->add($rapport, true);
             return $this->redirectToRoute('app_mail_new', ['id'=>2,'nompdf'=>$nompdf], Response::HTTP_SEE_OTHER);
         }
 

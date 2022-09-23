@@ -1,10 +1,9 @@
 
 {% extends 'template.html.twig' %}
 {% block pageName %} 
-Rapport
+    Rapport
 {% endblock %}
-  {% block javascript %}
- {% endblock %}
+
 
 {% block body %}
 <section class="content">
@@ -22,7 +21,7 @@ Rapport
                 {{ form_start(form) }}
                     <div class="card-body">
                     <div class="form-group">
-                         {{ form_row(form.numeroVol, {label: 'N° de vol'}) }}
+                           {{ form_row(form.numeroVol, {label: 'N° de vol'}) }}
                     </div>
                     <div class="row">
                         <div class="col-6 form-group">
@@ -41,14 +40,56 @@ Rapport
                         </div>
                     </div>
                     <div class="form-group">
-                         {{ form_row(form.remarque, {label: 'Remarque'}) }}
+                            {{ form_row(form.remarque, {label: 'Remarque'}) }}
                     </div>
                     <div class="form-group">
 
                     <!-- /.card-body -->
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Ajouter</button>
-                    </div>
+                     <div calss="form-group col-4 offset-4 ">
+                        <button type="button" class="btn btn-block btn-success btn-lg" data-toggle="modal" data-target="#modal-lg" >Suivant</button>
+                      </div>
+                       <div class="modal fade" id="modal-lg">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4 class="modal-title">Aperçu des informations</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                  <div class="card">
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                      <dl class="row">
+                                        <dt class="col-sm-4">Vol N° :</dt>
+                                        <dd id="numvol" class="col-sm-8"></dd>
+                                        <dt  class="col-sm-4">Début service :</dt>
+                                        <dd id="debutServe" class="col-sm-8"></dd>
+                                        <dt  class="col-sm-4">Fin service :</dt>
+                                        <dd id="finServe" class="col-sm-8"></dd>
+                                        <dt  class="col-sm-4">Date prévue de vol</dt>
+                                        <dd  id="prevuvol" class="col-sm-8"></dd>
+                                        <dt  class="col-sm-4">Date de vol</dt>
+                                        <dd id="detevol" class="col-sm-8"></dd>
+                                        <dt class="col-sm-4">Nombre de visa scanné:</dt>
+                                        <dd class="col-sm-8"></dd>
+                                        <dt class="col-sm-4">Remarques :</dt>
+                                        <dd id="remarques" class="col-sm-8"></dd>
+                                      </dl>
+                                    </div>
+                                    <!-- /.card-body -->
+                                  </div>
+                              </div>
+                              <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                                <button type="submit" class="btn btn-primary">Valider</button>
+                              </div>
+                            </div>
+                            <!-- /.modal-content -->
+                          </div>
+                          <!-- /.modal-dialog -->
+                        </div>
                 {{ form_end(form) }}
                 </div>
             </div>
@@ -56,8 +97,30 @@ Rapport
         </div>
     </div>
 </section>
-
-
-
 {% endblock %}
 
+{% block javascript %}
+ <script>
+    $(document).ready(function(){
+        $("#rapport1_numeroVol").on("input", function(){
+            $("#numvol").text($(this).val());
+        });
+         $("#rapport1_debutService").on("input", function(){
+          $("#debutServe").text($(this).val());
+        });
+          $("#rapport1_finService").on("input", function(){
+          $("#finServe").text($(this).val());
+        });
+         $("#rapport1_datePrevue").on("input", function(){
+          $("#prevuvol").text($(this).val());
+        });
+         $("#rapport1_dateVol").on("input", function(){
+          $("#detevol").text($(this).val());
+        });
+         $("#rapport1_remarque").on("input", function(){
+          $("#remarques").text($(this).val());
+        });
+
+      });
+ </script>
+{% endblock %}

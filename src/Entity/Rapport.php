@@ -51,10 +51,6 @@ class Rapport
     {
         $this->visaParRapports = new ArrayCollection();
     }
-
- 
-
-
     public function getId(): ?int
     {
         return $this->id;
@@ -197,6 +193,10 @@ class Rapport
         $this->nomPdf = $nomPdf;
 
         return $this;
+    }
+    public function getDateRapport(): ?\DateTimeInterface
+    {
+        return $this->debutService;
     }
 
    

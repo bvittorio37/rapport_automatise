@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %}
 
 {% block title %}Rapport index{% endblock %}
 
@@ -8,25 +8,22 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>NumeroVol</th>
-                <th>DateRapport</th>
-                <th>DatePrevue</th>
-                <th>DateVol</th>
-                <th>Remarque</th>
-                <th>actions</th>
+                <th></th>
+                <th>Numero de vol</th>
+                <th>Date de Vol</th>
+                <th>Date de Rapport</th>
             </tr>
         </thead>
         <tbody>
         {% for rapport in rapports %}
             <tr>
                 <td>{{ rapport.id }}</td>
-
-                <td>{{ rapport.datePrevue ? rapport.datePrevue|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ rapport.remarque }}</td>
+                <td>{{ rapport.numeroVol }}</td>
+                <td>{{ rapport.dateVol ? rapport.dateVol|date('Y-m-d') : '' }}</td>
+                <td>{{ rapport.getDateRapport() ? rapport.getDateRapport()|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_depart_show', {'id': rapport.id}) }}">show</a>
-                    <a href="{{ path('app_depart_edit', {'id': rapport.id}) }}">edit</a>
+                    <a href="{{ path('app_rapport_show', {'id': rapport.id}) }}">show</a>
+                    <a href="{{ path('app_rapport_edit', {'id': rapport.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -37,5 +34,79 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_depart_nouveau') }}">Create new</a>
+    <a href="{{ path('app_rapport_new') }}">Create new</a>
+{% endblock %} #}
+{% extends 'template.html.twig' %}
+{% block pageName %} 
+ Depart
+{% endblock %}
+
+{% block body %}
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                    <h3 class="card-title mr-5">Liste des Rapport de Départ</h3>
+                   
+            
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                    
+                            <input type="text" name="table_search" class="form-control float-right" placeholder="Recherche">
+
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0 " style="height: 350px;">
+                <table class="table table-head-fixed text-nowrap">
+                  <thead>
+                    <tr>
+                        <th></th>
+                        <th>Numero de vol</th>
+                        <th>Date de Vol</th>
+                        <th>Date de Rapport</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                {% for rapport in rapports %}
+
+                    <tr>
+                        <td>{{ rapport.id }}</td>
+                        <td>{{ rapport.numeroVol ? : '-' }}</td>
+                        <td>{{ rapport.dateVol ? rapport.dateVol|date('Y-m-d') : '-' }}</td>
+                        <td>{{ rapport.getDateRapport() ? rapport.getDateRapport()|date('Y-m-d') : '-' }}</td>
+
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" >Aucun Rapport</td>
+                    </tr>
+                {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+               <!-- /.card-footer -->
+            
+                <div class="card-footer clearfix">
+                    <a class="ml-5 btn btn-sm btn-success text-light float-right"  href ="{{ path('app_depart_nouveau') }}"><i class="fas fa-plus"> Nouveau rapport</i> </a>
+                </div>
+                <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
 {% endblock %}

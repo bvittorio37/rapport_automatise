@@ -17,18 +17,11 @@ class RapportService
      // dd($nomFichier);
      /* $this->pdf->generate($html,$nomFichier);
      dd("eto"); */
-    
+    dd($this->pdf->getOutput($html)); 
        return new PdfResponse(
-              $this->pdf->getOutputFromHtml($html),
-              200,
-              array(
-                  'Content-Type' => 'application/pdf',
-                  'Content-Disposition' => 'attachement; filename="' . $nomFichier . '.pdf"'
-              )
+              $this->pdf->getOutputFromHtml($html), 
+              $nomFichier.'.pdf' 
           );
-        
-          
-  
     }
     
 

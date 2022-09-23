@@ -1,31 +1,43 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html>
+<head>
+	   <link rel="stylesheet" href="{{ absolute_url(asset('assets/dist/css/bootstrap.min.css'))}}">
+	    <title>Départ</title>
+</head>
+<body>
+     <div class="container">
+        <div class="col-12 info-box mb-5">
+        	<div class="info-box-content">
+                      <h3 class="info-box-text text-center ">Rapport de vol du 22 Mai 2022 à 06:50 </h3>
+                      <h4 class="info-box-number text-center  mb-0">Départ</h4>
+        	</div>
+    	</div>
+        <table class="table mb-5">
+            <tbody>
 
-{% block title %}Rapport{% endblock %}
+                <tr>
+                    <th>Numero de vol</th>
+                    <td>{{ rapport.numeroVol }}</td>
+                </tr>
 
-{% block body %}
-    <div class="row mt-5">
-        <div class="col-12 mb-5">
-            <h3>Rapport de vol Départ du </h3>
+                <tr>
+                    <th>Date de Vol</th>
+                    <td>{{ rapport.dateVol ? rapport.dateVol|date('Y-m-d H:i:s') : '' }}</td>
+                </tr>
+                <tr>	
+                    <th>Nb de passagers</th>
+                    <td>5</td>
+            	</tr>
+            </tbody>
+        </table>
+        <div class="card-header">
+        		<h4 class=" text-center  mb-0">Commetaires</h4>
         </div>
-    
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Numero de vol</th>
-                <td>{{ rapport.numeroVol }}</td>
-            </tr>
-
-            <tr>
-                <th>Date de Vol</th>
-                <td>{{ rapport.dateVol ? rapport.dateVol|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Remarque</th>
-                <td>{{ rapport.remarque }}</td>
-            </tr>
-        </tbody>
-    </table>
-    
-    </div>
-
-{% endblock %}
+        <div class="callout callout-success">
+                 <h6 class=" text-center  mb-0" >(Aucune commentaire)</h6>
+        </div>
+        </div>	
+     </div>
+     
+</body>
+</html>
