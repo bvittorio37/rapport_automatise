@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Paf{% endblock %}
+
+{% block body %}
+    <h1>Edit Paf</h1>
+
+    {{ include('paf/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_paf_index') }}">back to list</a>
+
+    {{ include('paf/_delete_form.html.twig') }}
+{% endblock %}
