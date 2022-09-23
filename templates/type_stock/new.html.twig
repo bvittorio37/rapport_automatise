@@ -1,7 +1,7 @@
 
 {% extends 'template.html.twig' %}
 {% block pageName %} 
-Type de rapport
+Type de stock
 {% endblock %}
   {% block javascript %}
  {% endblock %}
@@ -14,17 +14,14 @@ Type de rapport
             <div class="col-md-12">
                 <div class="card card-primary">
                 <div class="card-header">
-                    <h1 class="card-title">Ajouter une nouvelle type de rapport</h1>
+                    <h1 class="card-title">Ajouter une nouvelle type de stock</h1>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
                 {{ form_start(form) }}
                     <div class="card-body">
                     <div class="form-group">
-                         {{ form_row(form.typeRapport,{label: 'Type du rapport', 'attr': {'class': 'form-control'}}) }}
-                    </div>
-                    <div class="form-group">
-                         {{ form_row(form.remarque, {label: 'Remarque'}) }}
+                         {{ form_row(form.typeStock,{label: 'Type du stock', 'attr': {'class': 'form-control'}}) }}
                     </div>
                     <div class="form-group">
 
