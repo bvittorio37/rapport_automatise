@@ -26,7 +26,7 @@ class CategorieMaterielController extends AbstractController
     {
         $categorieMateriel = new CategorieMateriel();
         $form = $this->createForm(CategorieMaterielType::class, $categorieMateriel);
-        $form->handleRequest($request);
+        $form->handleRequest($request); 
 
         if ($form->isSubmitted() && $form->isValid()) {
             $categorieMaterielRepository->add($categorieMateriel, true);

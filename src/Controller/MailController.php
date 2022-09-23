@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Entity\Mail;
 use App\Form\MailType;
 use App\Repository\MailRepository;
+use App\Repository\RapportRepository;
+use App\Service\MailService;
+use App\Service\PdfService;
 use App\Service\RapportService;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,28 +31,33 @@ class MailController extends AbstractController
     }
 
     #[Route('/{id}/{nompdf}/new', name: 'app_mail_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, MailRepository $mailRepository,RapportService $rapportServe,MailerInterface $mailer ): Response
+    public function new(Request $request,MailService $mailServe, MailRepository $mailRepository,RapportService $rapportServe,MailerInterface $mailer,RapportRepository $rapRepos,PdfService $pdfServe): Response
     {
         $idRapport = $request->get('id');
-        $nompdf = $request->get('nompdf');$html=$this->generateUrl('app_depart_show',['id'=>$idRapport],UrlGeneratorInterface::ABSOLUTE_URL); 
-        $pdf=$rapportServe->genererPdf($html,$nompdf); 
+        $nompdf = $request->get('nompdf');
+        $rapport=$rapRepos->find($idRapport);
+        $html= $this->render('depart/show.html.twig', ['rapport' => $rapport]);
+        $pdf=$pdfServe->genererPdf($html);
         $mail = new Mail();
         $mail->setObject($nompdf);
         $form = $this->createForm(MailType::class, $mail);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $mail->setPjName('lala');
+            $to=$mailServe->getMailsTo($mail->getDepartement());
+         
+            $cc= $mailServe->getMailsCc($mail->getCc());
             $email = (new Email())
-                ->from('bvittorio37@gmail.com')
-                ->to('elthor.clyde@gmail.com')
-                ->subject('Time for Symfony Mailer!')
-                ->text('Sending emails is fun again!')
-                ->html('<p>See Twig integration for better HTML integration!</p>');
-            //->attach(fopen());
+                ->from($rapport->getUtilisateur()->getEmail())
+                ->to(...$to)
+                ->cc(...$cc)
+                ->subject($mail->getObject())
+                ->text($mail->getMessage())
+                ->attach($pdf,sprintf('%s.pdf', $nompdf) , 'application/pdf');
             try{
                 $mailer->send($email);
             }
+            
             catch(TransportExceptionInterface $e){
                dd($e->getMessage()); 
             }

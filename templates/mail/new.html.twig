@@ -28,7 +28,7 @@ Envoie Mail
                             {{ form_row(form.departement, {label: 'A:', 'attr': {'class': 'form-control'}}) }}
                         </div>
                         <div class="form-group">
-                            {{ form_row(form.cc, {label: "Cc:",'attr': {'placeholder': 'email1;email2'}}) }}
+                            {{ form_row(form.cc, {label: "Cc:",'attr': {'placeholder': 'email1,email2,'}}) }}
                         </div>
                         <div class="col-md-6 form-group">
                             {{ form_row(form.object) }}
@@ -36,11 +36,6 @@ Envoie Mail
                         <div class="form-group">
                             {{ form_row(form.message, {label: "Message:",'attr': {'placeholder': 'Votre message...'}}) }}
                         </div>
-                        {# <div class="form-group">
-                        <div class="btn btn-default btn-file">
-                            {{ form_row(form.pj) }}
-                        </div>
-                        </div>  #}
                     </div>
                 <!-- /.card-body -->
                     <div class="card-footer">

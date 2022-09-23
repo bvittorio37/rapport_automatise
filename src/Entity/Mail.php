@@ -20,9 +20,6 @@ class Mail
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $cc;
 
-    #[ORM\Column(type: 'string', length: 75)]
-    private $pjName;
-
     #[ORM\Column(type: 'string', length: 100)]
     private $object;
 
@@ -57,18 +54,6 @@ class Mail
     public function setCc(?string $cc): self
     {
         $this->cc = $cc;
-
-        return $this;
-    }
-
-    public function getPjName(): ?string
-    {
-        return $this->pjName;
-    }
-
-    public function setPjName(string $pjName): self
-    {
-        $this->pjName = $pjName;
 
         return $this;
     }
