@@ -21,7 +21,7 @@ Site
                 {{ form_start(form) }}
                     <div class="card-body">
                     <div class="form-group">
-                         {{ form_row(form.lieu, {label: 'Lieu'}) }}
+                         {{ form_row(form.lieu,{label: 'Lieu:', 'attr': {'class': 'form-control'}}) }}
                     </div>
                     <div class="form-group">
                          {{ form_row(form.remarque, {label: 'Remarque'}) }}
