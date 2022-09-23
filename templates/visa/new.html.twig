@@ -1,0 +1,47 @@
+
+{% extends 'template.html.twig' %}
+{% block pageName %} 
+  Visa
+{% endblock %}
+  {% block javascript %}
+ {% endblock %}
+
+{% block body %}
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <div class="card card-primary">
+                <div class="card-header">
+                    <h1 class="card-title">Entrer un nouveau visa</h1>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <div class="card-body">
+                {{ form_start(form) }}
+                    <div class="card-body">
+
+                    <div class="form-group">
+                         {{ form_row(form.intitule, {label: "Intitule"}) }}
+                    </div>
+                    <div class="form-group">
+                         {{ form_row(form.remarque, {label: 'Remarque'}) }}
+                    </div>
+
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                    </div>
+                {{ form_end(form) }}
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}
+
