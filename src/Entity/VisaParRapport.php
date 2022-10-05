@@ -13,7 +13,7 @@ class VisaParRapport
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: rapport::class, inversedBy: 'visaParRapports')]
+    #[ORM\ManyToOne(targetEntity: rapport::class, inversedBy: 'visaParRapports', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private $rapport;
 
@@ -63,4 +63,5 @@ class VisaParRapport
         $this->nombre = $nombre;
         return $this;
     }
+    
 }

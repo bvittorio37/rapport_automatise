@@ -39,7 +39,8 @@ class MailController extends AbstractController
         $html= $this->render('depart/show.html.twig', ['rapport' => $rapport]);
         $pdf=$pdfServe->genererPdf($html);
         $mail = new Mail();
-        $mail->setObject($nompdf);
+        $subject = str_replace('-',' ',$nompdf);
+        $mail->setObject($subject);
         $form = $this->createForm(MailType::class, $mail);
         $form->handleRequest($request);
 

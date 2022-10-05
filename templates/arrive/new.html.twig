@@ -1,0 +1,142 @@
+
+{% extends 'template.html.twig' %}
+{% block pageName %} 
+    Rapport
+{% endblock %}
+
+
+{% block body %}
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <div class="card card-primary">
+                <div class="card-header">
+                    <h1 class="card-title">Effectuer un rapport de vol départ</h1>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <div class="card-body">
+                <pre>
+                 
+                </pre>
+                {{ form_start(form) }}
+                    <div class="card-body">
+                    <div class="form-group">
+                           {{ form_row(form.site, {label: 'Site'}) }}
+                    </div>
+                    <div class="form-group">
+                           {{ form_row(form.numeroVol, {label: 'N° de vol'}) }}
+                    </div>
+                    <div class="row">
+                        <div class="col-6 form-group">
+                            {{ form_row(form.debutService, {label: 'Début de Service'}) }}
+                        </div>
+                        <div class="col-6 form-group">
+                            {{ form_row(form.finService, {label: 'Fin de Service'}) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class=" col-6 form-group">
+                            {{ form_row(form.datePrevue, {label: 'Date prévue'}) }}
+                        </div>
+                        <div class="col-6 form-group">
+                            {{ form_row(form.dateVol, {label: 'Date vol'}) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                    
+                      {% for vpr in form.visaParRapports %}
+                       <div class=" col-4 form-group">
+                            {{ form_row(vpr.nombre, {label: vpr.vars.data.visa.intitule}) }}
+                        </div>
+                      
+                      {% endfor %}
+                     
+                   
+                         
+                    </div>
+                    <div class="form-group">
+                            {{ form_row(form.remarque, {label: 'Remarque'}) }}
+                    </div>
+                    <!-- /.card-body -->
+                     <div calss="form-group col-4 offset-4 ">
+                        <button type="button" class="btn btn-block btn-success btn-lg" data-toggle="modal" data-target="#modal-lg" >Suivant</button>
+                      </div>
+                       <div class="modal fade" id="modal-lg">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4 class="modal-title">Aperçu des informations</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                  <div class="card">
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                      <dl class="row">
+                                        <dt class="col-sm-4">Vol N° :</dt>
+                                        <dd id="numvol" class="col-sm-8"></dd>
+                                        <dt  class="col-sm-4">Début service :</dt>
+                                        <dd id="debutServe" class="col-sm-8"></dd>
+                                        <dt  class="col-sm-4">Fin service :</dt>
+                                        <dd id="finServe" class="col-sm-8"></dd>
+                                        <dt  class="col-sm-4">Date prévue de vol</dt>
+                                        <dd  id="prevuvol" class="col-sm-8"></dd>
+                                        <dt  class="col-sm-4">Date de vol</dt>
+                                        <dd id="detevol" class="col-sm-8"></dd>
+                                        <dt class="col-sm-4">Nombre de visa scanné:</dt>
+                                        <dd class="col-sm-8"></dd>
+                                        <dt class="col-sm-4">Remarques :</dt>
+                                        <dd id="remarques" class="col-sm-8"></dd>
+                                      </dl>
+                                    </div>
+                                    <!-- /.card-body -->
+                                  </div>
+                              </div>
+                              <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                                <button type="submit" class="btn btn-primary">Valider</button>
+                              </div>
+                            </div>
+                            <!-- /.modal-content -->
+                          </div>
+                          <!-- /.modal-dialog -->
+                        </div>
+                {{ form_end(form) }}
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block javascript %}
+ <script>
+    $(document).ready(function(){
+        $("#rapport1_numeroVol").on("input", function(){
+            $("#numvol").text($(this).val());
+        });
+         $("#rapport1_debutService").on("input", function(){
+          $("#debutServe").text($(this).val());
+        });
+          $("#rapport1_finService").on("input", function(){
+          $("#finServe").text($(this).val());
+        });
+         $("#rapport1_datePrevue").on("input", function(){
+          $("#prevuvol").text($(this).val());
+        });
+         $("#rapport1_dateVol").on("input", function(){
+          $("#detevol").text($(this).val());
+        });
+         $("#rapport1_remarque").on("input", function(){
+          $("#remarques").text($(this).val());
+        });
+
+      });
+ </script>
+{% endblock %}

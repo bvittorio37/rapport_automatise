@@ -21,6 +21,9 @@
                 {{ form_start(form) }}
                     <div class="card-body">
                     <div class="form-group">
+                           {{ form_row(form.site, {label: 'Site'}) }}
+                    </div>
+                    <div class="form-group">
                            {{ form_row(form.numeroVol, {label: 'N° de vol'}) }}
                     </div>
                     <div class="row">
@@ -38,6 +41,14 @@
                         <div class="col-6 form-group">
                             {{ form_row(form.dateVol, {label: 'Date vol'}) }}
                         </div>
+                    </div>
+                    <div class="row">
+                        {% for vpr in form.visaParRapports %}
+                        <div class=" col-12 form-group">
+                              {{ form_row(vpr.nombre, {label: vpr.vars.data.visa.intitule}) }}
+                          </div>
+                        {% endfor %}
+                        
                     </div>
                     <div class="form-group">
                             {{ form_row(form.remarque, {label: 'Remarque'}) }}

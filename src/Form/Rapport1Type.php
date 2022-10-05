@@ -13,6 +13,7 @@ class Rapport1Type extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('site')
             ->add('numeroVol')
             ->add('debutService', DateTimeType::class, array(
                 'required' => true,

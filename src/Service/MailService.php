@@ -25,13 +25,15 @@ class MailService
     }
 
     public function getMailsCc(String $cc){
-        
-        $mailsCc = explode(",",$cc);
-        foreach ($mailsCc as $key ) {
-            $email[] = new Address($key);
-         }
-         return $email;
-
+        if($cc){
+            $mailsCc = explode(",",$cc);
+            foreach ($mailsCc as $key ) {
+                $email[] = new Address($key);
+            }
+            return $email;
+        }
+        return null;
+  
     }
 
 }

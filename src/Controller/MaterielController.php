@@ -2,9 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Emballage;
 use App\Entity\Materiel;
+use App\Entity\Unite;
+use App\Entity\UniteMateriel;
+use App\Form\ChoixMaterielType;
 use App\Form\MaterielType;
 use App\Repository\MaterielRepository;
+use App\Repository\UniteRepository;
+use App\Service\TypageService;
+use App\Service\TypepageService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,17 +28,30 @@ class MaterielController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_materiel_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, MaterielRepository $materielRepository): Response
+    #[Route('/nouveau', name: 'app_materiel_nouveau', methods: ['GET', 'POST'])]
+    public function new(Request $request, MaterielRepository $materielRepository,UniteRepository $uniteRepo,TypageService $typeServe): Response
     {
         $materiel = new Materiel();
+        /// Initialisation de l'unite primaire du materiel
+        $unitePrimaire = new UniteMateriel();
+        $unitePrimaire->setTypeUnite($typeServe->getUnitePrimaireType());
+        $unitePrimaire->setQunatite(1);
+        $materiel->addUniteMateriel($unitePrimaire);
+
+
+        //initialisation de l'emballage du materiel
+        $emballage = new UniteMateriel();
+        $emballage->setUnite($typeServe->getUniteCarton());
+        $emballage->setTypeUnite($typeServe->getEmballageType());
+        $materiel->addUniteMateriel($emballage);
+
+        
         $form = $this->createForm(MaterielType::class, $materiel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $materielRepository->add($materiel, true);
-
-            return $this->redirectToRoute('app_materiel_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_materiel_nouveau', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('materiel/new.html.twig', [

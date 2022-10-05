@@ -29,6 +29,7 @@ class VisaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $visaRepository->add($visa, true);
 
             return $this->redirectToRoute('app_visa_new', [], Response::HTTP_SEE_OTHER);

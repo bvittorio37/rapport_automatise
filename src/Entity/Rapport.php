@@ -35,9 +35,12 @@ class Rapport
     #[ORM\JoinColumn(nullable: false)]
     private $typeRapport;
 
-    #[ORM\OneToMany(mappedBy: 'rapport', targetEntity: VisaParRapport::class)]
+    #[ORM\OneToMany(mappedBy: 'rapport', targetEntity: VisaParRapport::class, cascade: ['persist'])]
     private $visaParRapports;
 
+    #[ORM\OneToMany(mappedBy: 'rapport', targetEntity: StockSite::class, cascade: ['persist'])]
+    private $stockSites;
+    
     #[ORM\Column(type: 'datetime')]
     private $debutService;
 
@@ -47,9 +50,14 @@ class Rapport
     #[ORM\Column(type: 'string', length: 150, nullable: true)]
     private $nomPdf;
 
+    #[ORM\ManyToOne(targetEntity: Site::class, inversedBy: 'rapports')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $site;
+
     public function __construct()
     {
         $this->visaParRapports = new ArrayCollection();
+        $this->stockSites= new ArrayCollection();
     }
     public function getId(): ?int
     {
@@ -140,8 +148,9 @@ class Rapport
     public function addVisaParRapport(VisaParRapport $visaParRapport): self
     {
         if (!$this->visaParRapports->contains($visaParRapport)) {
-            $this->visaParRapports[] = $visaParRapport;
             $visaParRapport->setRapport($this);
+            $this->visaParRapports[] = $visaParRapport;
+            
         }
 
         return $this;
@@ -153,6 +162,36 @@ class Rapport
             // set the owning side to null (unless already changed)
             if ($visaParRapport->getRapport() === $this) {
                 $visaParRapport->setRapport(null);
+            }
+        }
+
+        return $this;
+    }
+    /**
+     * @return Collection<int, StockSite>
+     */
+    public function getStockSites(): Collection
+    {
+        return $this->stockSites;
+    }
+
+    public function addStockSite( StockSite $stockSite): self
+    {
+        if (!$this->stockSites->contains($stockSite)) {
+            $stockSite->setRapport($this);
+            $this->stockSites[] = $stockSite;
+            
+        }
+
+        return $this;
+    }
+
+    public function removeStockSite(StockSite $stockSite): self
+    {
+        if ($this->stockSites->removeElement($stockSite)) {
+            // set the owning side to null (unless already changed)
+            if ($stockSite->getRapport() === $this) {
+                $stockSite->setRapport(null);
             }
         }
 
@@ -197,6 +236,18 @@ class Rapport
     public function getDateRapport(): ?\DateTimeInterface
     {
         return $this->debutService;
+    }
+
+    public function getSite(): ?Site
+    {
+        return $this->site;
+    }
+
+    public function setSite(?Site $site): self
+    {
+        $this->site = $site;
+
+        return $this;
     }
 
    

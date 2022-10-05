@@ -21,7 +21,7 @@ class StockSite
     #[ORM\JoinColumn(nullable: false)]
     private $materiel;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'integer', nullable: true)]
     private $consommation;
 
     #[ORM\Column(type: 'integer', nullable: true)]
@@ -30,9 +30,24 @@ class StockSite
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $cause;
 
-    #[ORM\ManyToOne(targetEntity: paf::class)]
+    #[ORM\ManyToOne(targetEntity: Paf::class)]
     #[ORM\JoinColumn(nullable: true)]
     private $paf;
+
+    #[ORM\Column(type: 'datetime')]
+    private $dateStock;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $debutSerie;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $finSerie;
+
+    #[ORM\ManyToOne(targetEntity: Site::class, inversedBy: 'stockSites')]
+    private $site;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $entree;
 
     public function getId(): ?int
     {
@@ -58,7 +73,7 @@ class StockSite
 
     public function setmateriel(?Materiel $materiel): self
     {
-        $this->matriel = $materiel;
+        $this->materiel = $materiel;
 
         return $this;
     }
@@ -107,6 +122,66 @@ class StockSite
     public function setPaf(?paf $paf): self
     {
         $this->paf = $paf;
+
+        return $this;
+    }
+
+    public function getDateStock(): ?\DateTimeInterface
+    {
+        return $this->dateStock;
+    }
+
+    public function setDateStock(\DateTimeInterface $dateStock): self
+    {
+        $this->dateStock = $dateStock;
+
+        return $this;
+    }
+
+    public function getDebutSerie(): ?int
+    {
+        return $this->debutSerie;
+    }
+
+    public function setDebutSerie(?int $debutSerie): self
+    {
+        $this->debutSerie = $debutSerie;
+
+        return $this;
+    }
+
+    public function getFinSerie(): ?int
+    {
+        return $this->finSerie;
+    }
+
+    public function setFinSerie(?int $finSerie): self
+    {
+        $this->finSerie = $finSerie;
+
+        return $this;
+    }
+
+    public function getSite(): ?Site
+    {
+        return $this->site;
+    }
+
+    public function setSite(?Site $site): self
+    {
+        $this->site = $site;
+
+        return $this;
+    }
+
+    public function getEntree(): ?int
+    {
+        return $this->entree;
+    }
+
+    public function setEntree(?int $entree): self
+    {
+        $this->entree = $entree;
 
         return $this;
     }

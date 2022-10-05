@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\StockRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: StockRepository::class)]
@@ -32,8 +33,29 @@ class Stock
     #[ORM\Column(type: 'integer', nullable: true)]
     private $sortie;
 
-    #[ORM\Column(type: 'string', length: 100)]
+ 
+    #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private $intitule;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $debutSerie;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $finSerie;
+
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $dispo;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private $reference;
+
+    private $options;
+
+    #[ORM\Column(type: 'string', nullable: true)]
+    private $numBobine;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private $dateIndispo;
 
     public function getId(): ?int
     {
@@ -102,6 +124,7 @@ class Stock
         return $this;
     }
 
+
     public function getIntitule(): ?string
     {
         return $this->intitule;
@@ -113,4 +136,89 @@ class Stock
 
         return $this;
     }
+
+    public function getDebutSerie(): ?int
+    {
+        return $this->debutSerie;
+    }
+
+    public function setDebutSerie(?int $debutSerie): self
+    {
+        $this->debutSerie = $debutSerie;
+
+        return $this;
+    }
+
+    public function getFinSerie(): ?int
+    {
+        return $this->finSerie;
+    }
+
+    public function setFinSerie(?int $finSerie): self
+    {
+        $this->finSerie = $finSerie;
+
+        return $this;
+    }
+
+    public function isDispo(): ?bool
+    {
+        return $this->dispo;
+    }
+
+    public function setDispo(?bool $dispo): self
+    {
+        $this->dispo = $dispo;
+
+        return $this;
+    }
+
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+
+    public function setReference(?string $reference): self
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+   
+    public function getOptions(): ?array
+    {
+        return $this->options;
+       
+    }
+
+    public function setOptions(?array $options): self
+    {
+        $this->options= $options;
+        return $this;
+    }
+
+    public function getNumBobine(): ?int
+    {
+        return $this->numBobine;
+    }
+
+    public function setNumBobine(?int $numBobine): self
+    {
+        $this->numBobine = $numBobine;
+
+        return $this;
+    }
+
+    public function getDateIndispo(): ?\DateTimeInterface
+    {
+        return $this->dateIndispo;
+    }
+
+    public function setDateIndispo(?\DateTimeInterface $dateIndispo): self
+    {
+        $this->dateIndispo = $dateIndispo;
+
+        return $this;
+    }                          
 }

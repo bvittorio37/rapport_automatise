@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Rapport;
 use App\Form\Rapport1Type;
+use App\Form\RapportType;
 use App\Repository\RapportRepository;
 use App\Service\RapportService;
 use App\Service\TypeRapportService;
@@ -28,7 +29,8 @@ class DepartController extends AbstractController
     public function new(Request $request, RapportRepository $rapportRepository, TypeRapportService $typeService,RapportService $rapportServe): Response
     {
         $rapport = new Rapport();
-        $form = $this->createForm(Rapport1Type::class, $rapport);
+        $rapportServe->AjouterLesVisas($rapport,'D');
+        $form = $this->createForm(RapportType::class, $rapport);
         $form->handleRequest($request);
         //dd($typeService->getDepartType());
 
@@ -40,7 +42,7 @@ class DepartController extends AbstractController
            // $rapportRepository->add($rapport, true);
             return $this->redirectToRoute('app_mail_new', ['id'=>2,'nompdf'=>$nompdf], Response::HTTP_SEE_OTHER);
         }
-
+       
         return $this->renderForm('depart/new.html.twig', [
             'rapport' => $rapport,
             'form' => $form,

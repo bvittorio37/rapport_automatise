@@ -1,11 +1,45 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}New Unite{% endblock %}
+{% extends 'template.html.twig' %}
+{% block pageName %} 
+Unite
+{% endblock %}
+  {% block javascript %}
+ {% endblock %}
 
 {% block body %}
-    <h1>Create new Unite</h1>
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <div class="card card-primary">
+                <div class="card-header">
+                    <h1 class="card-title">Ajouter une nouvelle unité</h1>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                {{ form_start(form) }}
+                    <div class="card-body">
+                    <div class="form-group">
+                         {{ form_row(form.unite,{label: 'Unite:', 'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                         {{ form_row(form.remarque, {label: 'Remarque'}) }}
+                    </div>
+                    <div class="form-group">
 
-    {{ include('unite/_form.html.twig') }}
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Ajouter</button>
+                    </div>
+                {{ form_end(form) }}
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+</section>
 
-    <a href="{{ path('app_unite_index') }}">back to list</a>
+
+
 {% endblock %}
+

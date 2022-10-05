@@ -1,0 +1,120 @@
+
+{% extends 'template.html.twig' %}
+{% block pageName %} 
+ Rappport
+{% endblock %}
+
+
+
+{% block body %}
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <div class="card card-primary">
+                        <div class="card-header">
+                            <h1 class="card-title">Approvisionner un Site</h1>
+                        </div>
+                        <div class="card-body">
+                          {{ form_start(form) }}
+                                <div class="form-group">
+                                    <label>Vignettes</label>
+                                </div>
+
+                                <div class="offset-sm-1 row">
+                                    <div class=" col-1 form-group">
+                                        <label></label>
+                                        <h5></h5>
+                                    </div>
+                                    <div class=" col-3 form-group">
+                                        <label>Consommées </label>
+                                        
+                                    </div>
+                                    <div class="col-3 form-group">
+                                        <label>Abimmées </label>
+                                        
+                                    </div>
+                                    <div class="col-4 form-group">
+                                        <label>Cause</label>
+                                        
+                                    </div>
+                                </div>
+                                
+                            {% for stock in form.stockSites %}
+                                    {% if stock.vars.data.paf %}
+                                    <div class="offset-sm-1 row">
+                                        <div class=" col-1 form-group">
+                                            <h5>{{stock.vars.data.paf.paf}}</h5>
+                                        </div>
+                                        <div class=" col-3 form-group">
+                                            {{ form_row(stock.consommation, {label:false}) }}
+                                        
+                                        </div>
+                                    <div class="col-3 form-group">
+                                            {{ form_row(stock.abimmees, {label:false}) }}
+                                        </div>
+                                        <div class="col-4 form-group">
+                                            {{ form_row(stock.cause, {label:false}) }}
+                                        </div>
+                                    </div>
+                                        {% else %}
+                                        <div class="form-group">
+                                            <label>{{ stock.vars.data.materiel.materiel}} </label>
+                                            {{ form_row(stock.consommation, {label:false}) }}
+                                        </div>
+
+                                        <div id="dynamic" style="display:none;" >
+                                            {{ form_row(stock.abimmees, {label:false,disabled:true}) }}
+                                            {{ form_row(stock.cause, {label:false,display:true}) }}
+                                        </div>
+                                        
+                                    {% endif %}
+
+                            {% endfor %}
+                                <button type="submite" class="btn btn-block btn-success btn-lg" >Suivant</button>
+                            {{ form_end(form) }}
+                        </div>
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+</section>
+
+
+
+{% endblock %}
+{% block javascript %}
+<script>
+        $(document).on('change', '#stock_materiel',  function () {
+        let $field = $(this)
+        
+        //let $regionField = $('#appbundle_medecin_region')
+        let $tokenField = $('#stock__token')
+        let $form = $field.closest('form')
+        let mydata = {}
+        
+        
+        mydata[$field.attr('name')] = $field.val()
+        mydata[$tokenField.attr('name')]= $tokenField.val(),
+       //  console.log( mydata);
+        /*let target = '#' + $field.attr('id').replace('departement', 'ville').replace('region', 'departement')
+        // Les données à envoyer en Ajax
+        let data = {}
+        data[$regionField.attr('name')] = $regionField.val()
+        data[$field.attr('name')] = $field.val()*/
+        // On soumet les données
+        //console.log(mydata)
+        $.post($form.attr('action'), mydata).then(function (data) {
+            // On récupère le nouveau <select>
+            let $input = $(data).find("#dynamic")
+            console.log("lala")
+            // On remplace notre <select> actuel
+            //$(target).replaceWith($input)
+        })
+        })
+      
+
+</script>
+{% endblock %}
+

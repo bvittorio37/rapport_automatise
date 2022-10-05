@@ -21,6 +21,9 @@
                 <div class="card-body">
                 {{ form_start(form) }}
                     <div class="card-body">
+                    <div class="form-group">
+                         {{ form_row(form.type, {label: "Pour quel type de Rapport ?"}) }}
+                    </div>
 
                     <div class="form-group">
                          {{ form_row(form.intitule, {label: "Intitule"}) }}

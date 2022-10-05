@@ -59,7 +59,7 @@ class MailsDepartementController extends AbstractController
 
             return $this->redirectToRoute('app_mails_departement_index', [], Response::HTTP_SEE_OTHER);
         }
-
+ 
         return $this->renderForm('mails_departement/edit.html.twig', [
             'mails_departement' => $mailsDepartement,
             'form' => $form,

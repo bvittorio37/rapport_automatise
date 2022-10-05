@@ -1,0 +1,64 @@
+
+{% extends 'template.html.twig' %}
+{% block pageName %} 
+Approvisionnement
+{% endblock %}
+
+
+
+{% block body %}
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <div class="card card-primary">
+                        <div class="card-header">
+                            <h1 class="card-title">Approvisionner un Site</h1>
+                        </div>
+                        <div class="card-body">
+                            {{ include('stock/_form.html.twig') }}
+                        </div>
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+</section>
+
+
+
+{% endblock %}
+{% block javascript %}
+<script>
+        $(document).on('change', '#stock_materiel',  function () {
+        let $field = $(this)
+        
+        //let $regionField = $('#appbundle_medecin_region')
+        let $tokenField = $('#stock__token')
+        let $form = $field.closest('form')
+        let mydata = {}
+        
+        
+        mydata[$field.attr('name')] = $field.val()
+        mydata[$tokenField.attr('name')]= $tokenField.val(),
+       //  console.log( mydata);
+        /*let target = '#' + $field.attr('id').replace('departement', 'ville').replace('region', 'departement')
+        // Les données à envoyer en Ajax
+        let data = {}
+        data[$regionField.attr('name')] = $regionField.val()
+        data[$field.attr('name')] = $field.val()*/
+        // On soumet les données
+        //console.log(mydata)
+        $.post($form.attr('action'), mydata).then(function (data) {
+            // On récupère le nouveau <select>
+            let $input = $(data).find("#dynamic")
+            console.log("lala")
+            // On remplace notre <select> actuel
+            //$(target).replaceWith($input)
+        })
+        })
+      
+
+</script>
+{% endblock %}
+

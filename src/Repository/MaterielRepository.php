@@ -29,6 +29,7 @@ class MaterielRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    
 
     public function remove(Materiel $entity, bool $flush = false): void
     {
@@ -54,13 +55,22 @@ class MaterielRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Materiel
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findQuantiteParCarton(int $idMat)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT um.qunatite
+            FROM App\Entity\Materiel m
+            JOIN m.uniteMateriels um
+            JOIN um.unite u
+            WHERE um.typeUnite=1 and m.id = :id'
+        )->setParameter('id', $idMat);
+
+        return $query->getOneOrNullResult()['qunatite'];
+    }
 }
+/* select um.qunatite from materiel m 
+	join unite_materiel um on (m.id=um.materiel_id)
+	join unite u on (um.unite_id=u.id)
+where um.type_unite_id=1 and m.id=38 */
