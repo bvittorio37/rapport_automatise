@@ -10,12 +10,15 @@ use Doctrine\DBAL\Types\TextType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType as TypeTextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 class StockType extends AbstractType
 {
@@ -31,11 +34,16 @@ class StockType extends AbstractType
         $builder
 
              ->add('unite', EntityType::class, [
-                'required'=>true,
+                'required'=>false,
                 'mapped' => false,
                 'placeholder' => 'Choisir son unite',
                 
                 'class' => Unite::class,
+                'constraints'=>[
+                    new NotNull([
+                        'message'=>" Vous devez choisir l'unité"
+                    ]),
+                ],
                 'choice_label' => function(Unite $unite) {
                     return sprintf(' %s', $unite->getUnite());
                 },
@@ -43,10 +51,15 @@ class StockType extends AbstractType
                     'class' => 'form-control',
                 ],
             ])   
-            ->add('quantite', NumberType::class,[
-                'required'=>true,
+            ->add('quantite', IntegerType::class,[
+                'required'=>false,
                 'mapped' => false,
-                'label'=>'Quantité'
+                'label'=>'Quantité',
+                'constraints'=>[
+                    new NotBlank([
+                        'message'=>" Vous devez remplir ce champ"
+                    ]),
+                ],
             ]);
     }
     public function configureOptions(OptionsResolver $resolver): void

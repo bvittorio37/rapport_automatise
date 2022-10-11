@@ -21,13 +21,13 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'choices' => [
-                    'TECHNICIEN'=> 'ROLE_USER',
-                    'GESTIONNAIRE STOCK'=>'ROLE_GESTIONNAIRE_STOCK',
-                    'SUPER ADMIN'=> 'ROLE_SUPER_ADMIN',
+                    'TECHNICIEN'=> 'ROLE_TECHNICIEN',
+                    'MAGASINIER'=>'ROLE_MAGASINIER',
+                    'ADMIN'=> 'ROLE_ADMIN',
                     ]
             ]
             )
-            ->add('password')
+            /* ->add('password') */
             ;
        
         

@@ -33,7 +33,7 @@
                       <th>Noms</th>
                       <th>Prénoms</th>
                       <th>Site</th>
-                      <th>Rôle</th>
+                      <th>Rôles</th>
                       <th>Etat<th>
                       <th></th>
                       <th></th>
@@ -59,7 +59,13 @@
                         <td>{{ user.noms }}</td>
                         <td>{{ user.prenoms }}</td>
                         <td>{{ user.site }}</td>
-                        <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                        
+                        <td>
+                         {# {% for role in user.roles %} #}
+                            {{ user.roles | join (' ,')|replace({'ROLE_': ' '})}} 
+                         {# {% endfor %} #}
+                        
+                        </td>
                         
                         <td id="activation{{user.id}}">{{ activation }}<td>
                         <td>

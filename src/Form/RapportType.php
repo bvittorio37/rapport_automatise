@@ -10,6 +10,9 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\NotNull;
+use Symfony\Component\Validator\Constraints\NotNullValidator;
 
 class RapportType extends AbstractType
 {
@@ -18,7 +21,7 @@ class RapportType extends AbstractType
         $builder
             ->add('site', EntityType::class, [
                 'placeholder' => 'Choisir le Site',
-                
+                'required'=> false,
                 'class' => Site::class,
                 'attr' => [
                     'class' => 'form-control',
@@ -28,6 +31,9 @@ class RapportType extends AbstractType
             ->add('debutService', DateTimeType::class, array(
                 'required' => true,
                 'widget' => 'single_text',
+                /* 'constraints' => [new NotNull([
+                    'message' => 'Aucun matériel séléctionné! ',
+                ]),new NotBlank()], */
                 'attr' => [
                     'class' => 'form-control input-inline datetimepicker',
                    // 'data-provide' => 'datetimepicker',
@@ -37,6 +43,11 @@ class RapportType extends AbstractType
             ->add('finService', DateTimeType::class, array(
                 'required' => true,
                 'widget' => 'single_text',
+                /* 'constraints'=>[
+                    new NotNull(['message'=> 'Ce champ est obligatoir'
+
+                    ]),
+                ], */
                 'attr' => [
                     'class' => 'form-control input-inline datetimepicker',
                    // 'data-provide' => 'datetimepicker',

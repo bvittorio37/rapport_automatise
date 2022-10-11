@@ -32,6 +32,7 @@
               </p>
             </a>
           </li> #}
+        {% if is_granted('ROLE_ADMIN') %}
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link ">
               <i class="nav-icon fa fa-users"></i>
@@ -55,30 +56,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link ">
-              <i class="nav-icon fa fa-users"></i>
-              <p>
-                Rapports
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{# {{path('app_utilisateur')}} #}#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Arrivé</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href=" {{path('app_depart_index')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Départ</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-           <li class="nav-item has-treeview">
+                     <li class="nav-item has-treeview">
             <a href="#" class="nav-link ">
               <i class="nav-icon fa fa-users"></i>
               <p>
@@ -119,6 +97,43 @@
               </li>
             </ul>
           </li>
+          {% endif %}
+          {% if is_granted('ROLE_TECHNICIEN') %}
+            <li class="nav-item has-treeview">
+              <a href="h.html" class="nav-link ">
+                <i class="nav-icon fa fa-users"></i>
+                <p>
+                  Rapports
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href=" {{path('arrive_index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Arrivé</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href=" {{path('app_depart_index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Départ</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+        {% endif %}
+        
+
+          <li class="nav-item">
+            <a href="{{path('etat_stock')}}" class="nav-link">
+              <i class="fas fa-circle nav-icon"></i>
+              <p>Etat de stock</p>
+            </a>
+          </li>
+        {% if is_granted('ROLE_MAGASINIER') %}
+            
+        
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link ">
               <i class="nav-icon fa fa-users"></i>
@@ -152,6 +167,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
+                <a href="{{path('app_stock_historique')}}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Historique</p>
+                </a>
+              </li>
+            
+              <li class="nav-item">
                 <a href="{{path('app_stock_choix')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Stockage</p>
@@ -165,6 +187,8 @@
               </li>
             </ul>
           </li>
+            
+        {% endif %}
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

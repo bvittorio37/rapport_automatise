@@ -7,6 +7,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotNull;
 
 class ChoixMaterielType extends AbstractType
 {
@@ -14,10 +15,13 @@ class ChoixMaterielType extends AbstractType
     {
         $builder
         ->add('materiel', EntityType::class, [
-            'required'=>true,
+            'required'=>false,
             'class' => Materiel::class,
             'placeholder' => 'Sélectionnez un materiel',
-            'mapped'=>false,
+            'mapped'=>true,
+            'constraints' => [new NotNull([
+                'message' => 'Aucun matériel séléctionné! ',
+            ])],
             'attr' => [
                 'class' => 'form-control',
             ],

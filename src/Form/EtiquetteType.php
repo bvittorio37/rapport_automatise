@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType as TypeTextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class EtiquetteType extends AbstractType
 {
@@ -17,11 +18,21 @@ class EtiquetteType extends AbstractType
             ->add('debutSerie', NumberType::class,[
                 'required'=>true,
                 'mapped' => false,
+                'constraints'=>[
+                    new NotBlank([
+                        'message'=> 'Ce champ ne doit pas être vide'
+                    ]),
+                ],
 
             ])
             ->add('finSerie', NumberType::class,[
                 'required'=>true,
                 'mapped' => false,
+                'constraints'=>[
+                    new NotBlank([
+                        'message'=> 'Ce champ ne doit pas être vide'
+                    ]),
+                ],
             ])
             ->add('numBobine', NumberType::class,[
                 'required'=>false,
@@ -30,6 +41,11 @@ class EtiquetteType extends AbstractType
             ->add('reference', TypeTextType::class,[
                 'required'=>true,
                 'mapped' => false,
+                'constraints'=>[
+                    new NotBlank([
+                        'message'=> 'Ce champ ne doit pas être vide'
+                    ]),
+                ],
             ])
         ;
     }

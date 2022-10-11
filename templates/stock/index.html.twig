@@ -1,39 +1,77 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Stock index{% endblock %}
+{% extends 'template.html.twig' %}
+{% block pageName %} 
+ Historique
+{% endblock %}
 
 {% block body %}
-    <h1>Stock index</h1>
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                    <h3 class="card-title mr-5">L'historique de stcok du magasin</h3>
+                   
+            
+                    <div class="card-tools">
+                        <div class="input-group input-group-sm" style="width: 150px;">
+                    
+                            <input type="text" name="table_search" class="form-control float-right" placeholder="Recherche">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>DateStock</th>
-                <th>Entree</th>
-                <th>Sortie</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for stock in stocks %}
-            <tr>
-                <td>{{ stock.id }}</td>
-                <td>{{ stock.dateStock ? stock.dateStock|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ stock.entree }}</td>
-                <td>{{ stock.sortie }}</td>
-                <td>
-                    <a href="{{ path('app_stock_show', {'id': stock.id}) }}">show</a>
-                    <a href="{{ path('app_stock_edit', {'id': stock.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0 " style="height: 350px;">
+                <table class="table table-head-fixed text-nowrap">
+                  <thead>
+                    <tr>
+                        <th></th>
+                        <th>Date de Stock</th>
+                        <th>Mouvement </th>
+                        <th>Matériel</th>
+                        <th>Quantité</th>
+                        <th>Remarques</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                {% for i,historique in historiques %}
 
-    <a href="{{ path('app_stock_achat') }}">Create new</a>
+                    <tr>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ historique.dateStock ? historique.dateStock|date('Y-m-d  h:i:s') : '-' }}</td>
+                        <td >{{historique.mouvement ? : '-' }}</td>
+                        <td >{{historique.materiel ? : '-' }}</td>
+                        <td >{{historique.quantite ? : '-' }}</td>
+                        <td >{{historique.remarque ? : '-' }}</td>
+
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" >(Aucun Historique)</td>
+                    </tr>
+                {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+               <!-- /.card-footer -->
+            
+                <div class="card-footer clearfix">
+                    <a class="ml-5 btn btn-sm btn-success text-light float-right"  href ="{{ path('app_depart_nouveau') }}"><i class="fas fa-plus"> Nouveau rapport</i> </a>
+                </div>
+                <!-- /.card-footer -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
 {% endblock %}

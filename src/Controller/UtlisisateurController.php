@@ -107,14 +107,14 @@ class UtlisisateurController extends AbstractController
     public function edit(Request $request,UserPasswordHasherInterface $userPasswordHasher, User $user, UserRepository $userRepository): Response
     {
 
-        $user->setPassword(" ");
+    
         $form = $this->createForm(UserType::class, $user);
         
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setPassword(
-            $userPasswordHasher->hashPassword( $user,$user->getPassword()) );
+           /*  $user->setPassword(
+            $userPasswordHasher->hashPassword( $user,$user->getPassword()) ); */
             $userRepository->add($user, true);
 
             return $this->redirectToRoute('app_utilisateur', [], Response::HTTP_SEE_OTHER);

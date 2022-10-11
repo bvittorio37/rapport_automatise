@@ -66,7 +66,7 @@ class DepartementController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_departement_delete', methods: ['POST'])]
+ /*    #[Route('/{id}', name: 'app_departement_delete', methods: ['POST'])]
     public function delete(Request $request, Departement $departement, DepartementRepository $departementRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$departement->getId(), $request->request->get('_token'))) {
@@ -74,5 +74,5 @@ class DepartementController extends AbstractController
         }
 
         return $this->redirectToRoute('app_departement_index', [], Response::HTTP_SEE_OTHER);
-    }
+    } */
 }

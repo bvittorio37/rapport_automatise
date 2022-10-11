@@ -2,12 +2,16 @@
 namespace App\Service;
 
 use App\Controller\MaterielController;
+use App\Entity\HistoriqueStock;
 use App\Entity\Stock;
 use App\Entity\TypeStock;
 use App\Entity\Unite;
+use App\Repository\HistoriqueAffectationRepository;
+use App\Repository\HistoriqueStockRepository;
 use App\Repository\MaterielRepository;
 use App\Repository\TypeRapportRepository;
 use App\Repository\TypeStockRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
 class StockService
 {
@@ -15,7 +19,9 @@ class StockService
     private $matRepo;
     private $typage;
   
-    public function __construct(TypeStockRepository $typeRipo,MaterielRepository $matRepo,TypageService $typage)
+    public function __construct(TypeStockRepository $typeRipo,MaterielRepository $matRepo,TypageService $typage
+    ,private ManagerRegistry $doctrine,private HistoriqueStockRepository $histoRepo 
+    )
     {
        $this->typeRipo = $typeRipo;
        $this->matRepo=$matRepo;
@@ -26,7 +32,27 @@ class StockService
      * Car le stockage d'etiquette est différent
      * aux autre types
      */
-
+    public function hitorifierStock(Stock $stock){
+        $historique = new HistoriqueStock();
+        $historique->setDateStock(date_create());
+        $historique->setMouvement($stock->getTypeStock()->getTypeStock());
+        $historique->setMateriel($stock->getMateriel());
+        if($historique->getMateriel()=='Etiquette'){
+            $quantite= $stock->getDebutSerie().' - '.$stock->getFinSerie();   
+        }
+        else{
+            if($historique->getMouvement()=='Entrée'){
+                $quantite = $stock->getEntree();
+            }
+           else{
+                $quantite = $stock->getSortie();
+           }
+        }
+        $historique->setQuantite($quantite);
+        $this->histoRepo->add($historique,true);
+        
+        //if(Stock);
+    }
     public function traiterStock(Stock $stock=null,array $data, bool $autre, int $typeStock): array
    {
          $listesStock = array(); 

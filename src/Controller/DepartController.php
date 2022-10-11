@@ -75,12 +75,5 @@ class DepartController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_depart_delete', methods: ['POST'])]
-    public function delete(Request $request, Rapport $rapport, RapportRepository $rapportRepository): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$rapport->getId(), $request->request->get('_token'))) {
-            $rapportRepository->remove($rapport, true);
-        }
-        return $this->redirectToRoute('app_depart_index', [], Response::HTTP_SEE_OTHER);
-    }
+
 }

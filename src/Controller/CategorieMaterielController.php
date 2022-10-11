@@ -13,13 +13,13 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/categorie/materiel')]
 class CategorieMaterielController extends AbstractController
 {
-    #[Route('/', name: 'app_categorie_materiel_index', methods: ['GET'])]
+    /* #[Route('/', name: 'app_categorie_materiel_index', methods: ['GET'])]
     public function index(CategorieMaterielRepository $categorieMaterielRepository): Response
     {
         return $this->render('categorie_materiel/index.html.twig', [
             'categorie_materiels' => $categorieMaterielRepository->findAll(),
         ]);
-    }
+    } */
 
     #[Route('/new', name: 'app_categorie_materiel_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CategorieMaterielRepository $categorieMaterielRepository): Response
@@ -37,14 +37,6 @@ class CategorieMaterielController extends AbstractController
         return $this->renderForm('categorie_materiel/new.html.twig', [
             'categorie_materiel' => $categorieMateriel,
             'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_categorie_materiel_show', methods: ['GET'])]
-    public function show(CategorieMateriel $categorieMateriel): Response
-    {
-        return $this->render('categorie_materiel/show.html.twig', [
-            'categorie_materiel' => $categorieMateriel,
         ]);
     }
 

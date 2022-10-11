@@ -12,9 +12,15 @@ Stock
         <div class="row">
             <!-- left column -->
             <div class="col-md-12">
-                <div class="card card-primary">
+                <div class="card card">
                         <div class="card-header">
-                            <h1 class="card-title">Emmagasiner un produit</h1>
+                            <h1 class="card-title">Emmagasiner  
+                              {% if stock %}  
+                                {{ stock.materiel }}
+                                {% else %}
+                                 un produit
+                                {% endif %}
+                            </h1>
                         </div>
                         <div class="card-body">
                             

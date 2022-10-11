@@ -1,7 +1,6 @@
 <?php
 namespace App\Service;
 
-use App\Controller\CategorieMaterielController;
 use App\Entity\Rapport;
 use App\Entity\StockSite;
 use App\Entity\VisaParRapport;
@@ -9,40 +8,30 @@ use App\Repository\CategorieMaterielRepository;
 use App\Repository\MaterielRepository;
 use App\Repository\PafRepository;
 use App\Repository\VisaRepository;
-use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
-use Knp\Snappy\Pdf;
-use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
-
 class RapportService
 {
-    private $pdf;
+
     private $visaRepo;
     private $matRepo;
     private $catRepo;
     private $pafRepo;
-    public function __construct(Pdf $pdf,VisaRepository $visaRepo,
+    public function __construct(VisaRepository $visaRepo,
       MaterielRepository $matRepo,CategorieMaterielRepository $catRepo
       ,PafRepository $pafRepo
     )
     {
       $this->matRepo=$matRepo;
-      $this->pdf =$pdf;
       $this->visaRepo=$visaRepo;
       $this->catRepo = $catRepo;
       $this->pafRepo= $pafRepo;
     }
-    public function genererPdf(String $html, String $nomFichier)
-    {
-     // dd($nomFichier);
-     /* $this->pdf->generate($html,$nomFichier);
-     dd("eto"); */
-    dd($this->pdf->getOutput($html)); 
-       return new PdfResponse(
-              $this->pdf->getOutputFromHtml($html), 
-              $nomFichier.'.pdf' 
-          );
-    }
+
+    /**
+     * Ajouter les visas spécifiques à chaque type de rapport. 
+     * Le type 'A' designe arrivé et 'D' pour départ 
+     */
     public function AjouterLesVisas(Rapport $rapport, string $type){
+
           $listeVisa=$this->visaRepo->findBy(['type'=>$type]);
           foreach ($listeVisa as  $visa) {
             $visaRapport = new VisaParRapport();
@@ -83,6 +72,9 @@ class RapportService
         }
         
       }
+    }
+    public function getDateRapport(Rapport $rapport){
+      return $rapport->getDebutService();
     }
     
    /*  $rapportRepository->findBy(['utilisateur' => $this->getUser(),'typeRapport'=>$typeService->getDepartType()]) */

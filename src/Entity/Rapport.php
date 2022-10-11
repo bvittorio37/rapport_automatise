@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\RapportRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -15,7 +16,7 @@ class Rapport
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 15, nullable: true)]
+    #[ORM\Column(type: 'string', length: 50, nullable: true)]
     private $numeroVol;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
@@ -27,6 +28,7 @@ class Rapport
     #[ORM\Column(type: 'text', nullable: true)]
     private $remarque;
 
+    
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'rapports')]
     #[ORM\JoinColumn(nullable: false)]
     private $utilisateur;
@@ -50,6 +52,7 @@ class Rapport
     #[ORM\Column(type: 'string', length: 150, nullable: true)]
     private $nomPdf;
 
+    #[Assert\NotNull(['message'=> 'Vous de vevez choisir une site'])]
     #[ORM\ManyToOne(targetEntity: Site::class, inversedBy: 'rapports')]
     #[ORM\JoinColumn(nullable: false)]
     private $site;

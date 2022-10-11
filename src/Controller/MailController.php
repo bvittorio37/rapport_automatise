@@ -46,7 +46,7 @@ class MailController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $to=$mailServe->getMailsTo($mail->getDepartement());
-         
+            $mail->setDe($mail->getCc());
             $cc= $mailServe->getMailsCc($mail->getCc());
             $email = (new Email())
                 ->from($rapport->getUtilisateur()->getEmail())
@@ -56,15 +56,15 @@ class MailController extends AbstractController
                 ->text($mail->getMessage())
                 ->attach($pdf,sprintf('%s.pdf', $nompdf) , 'application/pdf');
             try{
-                $mailer->send($email);
+                //$mailer->send($email);
             }
             
             catch(TransportExceptionInterface $e){
                dd($e->getMessage()); 
             }
             
-          /*$mailRepository->add($mail, true);*/
-            return $this->redirectToRoute('app_mail_index', [], Response::HTTP_SEE_OTHER);
+            $mailRepository->add($mail, true);
+            return $this->redirectToRoute('arrive_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('mail/new.html.twig', [

@@ -66,30 +66,32 @@ class ApprovisonnementController extends AbstractController
             $form = $this->createForm(ApprovisionType::class, $stockSite);
             $autre=true;
         }
-       
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Traitement de l'approvisionnement
             $approSite= $approService->traitementApprovisionnement($stockSite,$form->all(),$autre,0);
+            
             $approRep->add($approSite,true);
+           
             //Faire une sortie de stock dans le magasin
             $stock = new Stock();
             $stock->setMateriel($materiel);
             $listeStock=$stockServe->traiterStock($stock,$form->all(),$autre,1);
             $stockage=$listeStock[0];
+            
             if($stockage instanceof Stock){
                 //définir le type de stockage en Entree
                 $stockage->setTypeStock($stockServe->getTypeStock(1));
                 //insertion
                 $stockRepository->add($stockage, true);
             }     
-           dd('eto ny fetra');
+           
             // Approvisionner les sites
            
  
 
-            return $this->redirectToRoute('app_stock_autre', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_approvisonnement', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('stock/achat.html.twig', [

@@ -2,23 +2,36 @@
 
 namespace App\Controller;
 
-use App\Entity\Rapport;
-use App\Service\RapportService;
-use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
-use Knp\Snappy\Pdf;
+use App\Entity\User;
+use App\Service\EtatStockService;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class TestController extends AbstractController
 {
-    #[Route('/testpdf', name: 'pdf.acceuil')]
-    public function index(RapportService $rapServe): Response
+    #[Route('/etat/stock', name: 'etat_stock')]
+    public function index(Request $request, EtatStockService $etatServe): Response
     {
-        $html=$this->generateUrl('app_depart_index',[],UrlGeneratorInterface::ABSOLUTE_URL);
-        $nom="yaya.pdf";
-        $rapServe->genererPdf($html,$nom)->send();
-        return $this->render('acceuil/template.html.twig');
+        $user=$this->getUser();
+        $etatStock= null;
+        if( $user instanceof User){
+            if(!$user->getSite()) {
+                throw new AccessDeniedException("Vous n'êtes pas encore attribué dans un site !! ");
+              }
+            $etatStock= $etatServe->getEtatStockParSite(
+                $user->getSite()->getId()
+            );
+        
+        }
+       
+        return $this->render('acceuil/template.html.twig',[
+            'etatStock'=>$etatStock,
+        ]
+    
+    );
     }
 }

@@ -37,17 +37,23 @@ class StockSite
     #[ORM\Column(type: 'datetime')]
     private $dateStock;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private $debutSerie;
+    /* #[ORM\Column(type: 'integer', nullable: true)]
+    private $debutSerie; */
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private $finSerie;
+    /* #[ORM\Column(type: 'integer', nullable: true)]
+    private $finSerie; */
 
     #[ORM\ManyToOne(targetEntity: Site::class, inversedBy: 'stockSites')]
     private $site;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $entree;
+
+    #[ORM\Column(type: 'bigint', nullable: true)]
+    private $debutSerie;
+
+    #[ORM\Column(type: 'bigint', nullable: true)]
+    private $finSerie;
 
     public function getId(): ?int
     {
@@ -138,7 +144,7 @@ class StockSite
         return $this;
     }
 
-    public function getDebutSerie(): ?int
+    /* public function getDebutSerie(): ?int
     {
         return $this->debutSerie;
     }
@@ -148,9 +154,9 @@ class StockSite
         $this->debutSerie = $debutSerie;
 
         return $this;
-    }
+    } */
 
-    public function getFinSerie(): ?int
+    /* public function getFinSerie(): ?int
     {
         return $this->finSerie;
     }
@@ -160,7 +166,7 @@ class StockSite
         $this->finSerie = $finSerie;
 
         return $this;
-    }
+    } */
 
     public function getSite(): ?Site
     {
@@ -182,6 +188,30 @@ class StockSite
     public function setEntree(?int $entree): self
     {
         $this->entree = $entree;
+
+        return $this;
+    }
+
+    public function getDebutSerie(): ?string
+    {
+        return $this->debutSerie;
+    }
+
+    public function setDebutSerie(?string $debutSerie): self
+    {
+        $this->debutSerie = $debutSerie;
+
+        return $this;
+    }
+
+    public function getFinSerie(): ?string
+    {
+        return $this->finSerie;
+    }
+
+    public function setFinSerie(?string $finSerie): self
+    {
+        $this->finSerie = $finSerie;
 
         return $this;
     }

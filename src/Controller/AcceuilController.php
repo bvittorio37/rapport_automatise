@@ -14,10 +14,15 @@ class AcceuilController extends AbstractController
     #[Route('/acceuil', name: 'acceuil')]
     public function index(Request $request, RapportRepository $rapRepos,PdfService $pdfServe): Response
     {
-        /* $idRapport = 2;
-        $rapport=$rapRepos->find($idRapport);
-        $html= '<link href="'.$request->server->get('SYMFONY_DEFAULT_ROUTE_URL').'assets/dist/css/bootstrap.min.css" rel="stylesheet" />'.$this->render('depart/show.html.twig', ['rapport' => $rapport]);
-        $pdfServe->showPdf($html); */
+        if($this->isGranted('ROLE_ADMIN')){
+            return $this->redirectToRoute('app_utilisateur');
+        }
+        elseif($this->isGranted('ROLE_MAGASINIER')){
+            return $this->redirectToRoute('app_stock_historique');  
+        }
+        else{
+            return $this->redirectToRoute('etat_stock');  
+        }
        return $this->render('acceuil/template.html.twig');
     }
 

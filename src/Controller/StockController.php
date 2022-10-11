@@ -8,6 +8,7 @@ use App\Entity\TypeStock;
 use App\Form\ChoixMaterielType;
 use App\Form\EtiquetteType;
 use App\Form\StockType;
+use App\Repository\HistoriqueStockRepository;
 use App\Repository\StockRepository;
 use App\Repository\TypeStockRepository;
 use App\Service\StockService;
@@ -20,16 +21,17 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/stock')]
 class StockController extends AbstractController
 {
-    #[Route('/', name: 'app_stock_index', methods: ['GET'])]
-    public function index(StockRepository $stockRepository): Response
+    #[Route('/', name: 'app_stock_historique', methods: ['GET'])]
+    public function index(HistoriqueStockRepository $hitoriqueRepo): Response
     {
         return $this->render('stock/index.html.twig', [
-            'stocks' => $stockRepository->findAll(),
+            'historiques' => $hitoriqueRepo->findAll(),
         ]);
     }
     #[Route('/nouveau', name: 'app_stock_choix', methods: ['GET', 'POST'])]
     public function choisir(Request $request): Response
     {
+        
         $form = $this->createForm(ChoixMaterielType::class);
         $form->handleRequest($request);
 
@@ -38,8 +40,9 @@ class StockController extends AbstractController
             return $this->redirectToRoute('app_stock_materiel', ['idmat'=>$form->get('materiel')->getData()->getId()], Response::HTTP_SEE_OTHER);
         }
         return $this->renderForm('stock/achat.html.twig', [
-            /* 'stock' => $stock, */
+             'stock' => null, 
             'form' => $form,
+           
         ]);
     }
 

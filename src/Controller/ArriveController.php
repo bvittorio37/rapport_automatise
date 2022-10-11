@@ -22,7 +22,7 @@ class ArriveController extends AbstractController
     public function index(RapportRepository $rapportRepository,TypeRapportService $typeService): Response
     {
         return $this->render('arrive/index.html.twig', [
-            'rapports' => $rapportRepository->findBy(['utilisateur' => $this->getUser(),'typeRapport'=>$typeService->getDepartType()]),
+            'rapports' => $rapportRepository->findBy(['utilisateur' => $this->getUser(),'typeRapport'=>$typeService->getArriveType()]),
         ]);
     }
 
@@ -31,15 +31,19 @@ class ArriveController extends AbstractController
     {
 
         $rapport = new Rapport();
+        /// Ajoute les visas spécifiques au rapport de vol arrivé
         $rapportServe->AjouterLesVisas($rapport,'A');
-    
+
+
         $form = $this->createForm(RapportType::class, $rapport);
         $form->handleRequest($request);
         //dd($typeService->getDepartType());
 
         if ($form->isSubmitted() && $form->isValid() && $this->getUser()) {
+            dd($rapport);
             $rapport->setUtilisateur($this->getUser());
             $rapport->setTypeRapport($typeService->getArriveType());
+            
             $nompdf=("rapport-de-vol-arrive-".date("Y-m-d"));
             $rapport->setNomPdf($nompdf);
             $rapportRepository->add($rapport, true);
@@ -67,8 +71,8 @@ class ArriveController extends AbstractController
         //dd($typeService->getDepartType());
 
         if ($form->isSubmitted() && $form->isValid() && $this->getUser()) {
-
             $rapportRepository->add($rapport, true);
+            dd('eto');
             return $this->redirectToRoute('app_mail_new', ['id'=>$rapport->getId(),'nompdf'=>$rapport->getNomPdf()], Response::HTTP_SEE_OTHER);
         }
         //dd($form);

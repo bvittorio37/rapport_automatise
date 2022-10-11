@@ -15,13 +15,13 @@ class CategorieMateriel
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 20)]
+    #[ORM\Column(type: 'string', length: 50)]
     private $categorie;
 
     #[ORM\OneToMany(mappedBy: 'categorie', targetEntity: Materiel::class)]
     private $materiels;
 
-    #[ORM\Column(type: 'string', length: 100, nullable: true)]
+    #[ORM\Column(type: 'string', length: 150, nullable: true)]
     private $remarque;
 
     public function __construct()

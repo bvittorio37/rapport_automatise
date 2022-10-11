@@ -14,6 +14,7 @@ class Stock
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    #[Assert\NotBlank]
     #[ORM\ManyToOne(targetEntity: Materiel::class)]
     #[ORM\JoinColumn(nullable: false)]
     private $materiel;
@@ -25,8 +26,6 @@ class Stock
     #[ORM\Column(type: 'datetime')]
     private $dateStock;
 
-
-
     #[ORM\Column(type: 'integer', nullable: true)]
     private $entree;
 
@@ -37,11 +36,11 @@ class Stock
     #[ORM\Column(type: 'string', length: 100, nullable: true)]
     private $intitule;
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private $debutSerie;
+    /* #[ORM\Column(type: 'integer', nullable: true)]
+    private $debutSerie; */
 
-    #[ORM\Column(type: 'integer', nullable: true)]
-    private $finSerie;
+    /* #[ORM\Column(type: 'integer', nullable: true)]
+    private $finSerie; */
 
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $dispo;
@@ -56,6 +55,12 @@ class Stock
 
     #[ORM\Column(type: 'datetime', nullable: true)]
     private $dateIndispo;
+
+    #[ORM\Column(type: 'bigint', nullable: true)]
+    private $debutSerie;
+
+    #[ORM\Column(type: 'bigint', nullable: true)]
+    private $finSerie;
 
     public function getId(): ?int
     {
@@ -137,7 +142,7 @@ class Stock
         return $this;
     }
 
-    public function getDebutSerie(): ?int
+    /* public function getDebutSerie(): ?int
     {
         return $this->debutSerie;
     }
@@ -147,9 +152,9 @@ class Stock
         $this->debutSerie = $debutSerie;
 
         return $this;
-    }
+    } */
 
-    public function getFinSerie(): ?int
+   /*  public function getFinSerie(): ?int
     {
         return $this->finSerie;
     }
@@ -159,7 +164,7 @@ class Stock
         $this->finSerie = $finSerie;
 
         return $this;
-    }
+    } */
 
     public function isDispo(): ?bool
     {
@@ -218,6 +223,30 @@ class Stock
     public function setDateIndispo(?\DateTimeInterface $dateIndispo): self
     {
         $this->dateIndispo = $dateIndispo;
+
+        return $this;
+    }
+
+    public function getDebutSerie(): ?string
+    {
+        return $this->debutSerie;
+    }
+
+    public function setDebutSerie(?string $debutSerie): self
+    {
+        $this->debutSerie = $debutSerie;
+
+        return $this;
+    }
+
+    public function getFinSerie(): ?string
+    {
+        return $this->finSerie;
+    }
+
+    public function setFinSerie(?string $finSerie): self
+    {
+        $this->finSerie = $finSerie;
 
         return $this;
     }                          

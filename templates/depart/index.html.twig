@@ -83,12 +83,12 @@
                         <td>{{ rapport.id }}</td>
                         <td>{{ rapport.numeroVol ? : '-' }}</td>
                         <td>{{ rapport.dateVol ? rapport.dateVol|date('Y-m-d') : '-' }}</td>
-                        <td>{{ rapport.getDateRapport() ? rapport.getDateRapport()|date('Y-m-d') : '-' }}</td>
+                        <td >{{ rapport.getDateRapport() ? rapport.getDateRapport()|date('Y-m-d') : '-' }}</td>
 
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="5" >Aucun Rapport</td>
+                        <td colspan="5" >(Aucun Rapport effectué)</td>
                     </tr>
                 {% endfor %}
                   </tbody>
