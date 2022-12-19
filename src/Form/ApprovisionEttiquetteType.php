@@ -44,7 +44,8 @@ class ApprovisionEttiquetteType extends AbstractType
         ->add('numeroBobine', EntityType::class, [
             'required'=>true,
             'mapped' => false,
-            'placeholder' => 'Choisir le Numero du Bobine',
+            'label' => 'Numéro de la bobine',
+            'placeholder' => 'Choisir le Numero de la Bobine',
             'class' => Stock::class,
             'choices' => $this->stockRepo
                 ->findBy(['materiel'=> $builder->getData()->getMateriel()

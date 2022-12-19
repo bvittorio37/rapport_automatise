@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\MailsDepartementRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MailsDepartementRepository::class)]
 class MailsDepartement
@@ -19,6 +20,7 @@ class MailsDepartement
     #[ORM\Column(type: 'string', length: 150, nullable: true)]
     private $nomEmp;
 
+    #[Assert\Email( message:'Inserer un email valide') ]
     #[ORM\Column(type: 'string', length: 50)]
     private $email;
 

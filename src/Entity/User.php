@@ -47,6 +47,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 105, nullable: true)]
     private $email;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $telephones;
+
     public function __construct()
     {
         $this->rapports = new ArrayCollection();
@@ -86,8 +89,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        
-            $roles[] = 'ROLE_USER';
+            if(!$roles){
+                $roles[] = 'ROLE_USER';
+            }
+            
        
         return array_unique($roles);
     }
@@ -225,6 +230,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(?string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getTelephones(): ?string
+    {
+        return $this->telephones;
+    }
+
+    public function setTelephones(?string $telephones): self
+    {
+        $this->telephones = $telephones;
 
         return $this;
     }

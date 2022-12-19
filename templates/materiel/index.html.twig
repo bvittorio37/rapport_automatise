@@ -1,35 +1,68 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Materiel index{% endblock %}
+{% extends 'template.html.twig' %}
+{% block pageName %} 
+    Materiel
+{% endblock %}
+
 
 {% block body %}
-    <h1>Materiel index</h1>
+<section class="content">
+      <!-- Default box -->
+      <div class="card card-solid">
+        <div class="card-body pb-0">
+        {% for categorie in categories %}
+            <h4> {{categorie.categorie}}</h4>
+          <div class="row ">
+            {% for materiel in categorie.materiels %}
+                <div class="col-12 col-sm-6 col-md-3 ">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Materiel</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for materiel in materiels %}
-            <tr>
-                <td>{{ materiel.id }}</td>
-                <td>{{ materiel.materiel }}</td>
-                <td>
-                    <a href="{{ path('app_materiel_show', {'id': materiel.id}) }}">show</a>
-                    <a href="{{ path('app_materiel_edit', {'id': materiel.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                <div class="card bg-light">
+                    <div class="card-body pt-0">
+                            <h2 class="lead"><b>{{materiel.materiel}}</b></h2>
+                            
+                            {% for unite in materiel.uniteMateriels %}
+                              {% if unite.typeUnite.id == 1 %}
+                               <p class="text-muted text-sm"><b> nombre dans un carton :</b> {{unite.qunatite}}</p>
+                              {% else %}
+                                <p class="text-muted text-sm"><b> {{unite.typeUnite.type}} :</b> {{unite.unite}} </p>
+                              {% endif %}
+                          
+                            {% endfor %}
+                            
+                    </div>
+                    <div class="card-footer">
+                        <div class="text-center">
+                            <a href="{{ path('app_materiel_edit', {'id': materiel.id})}}" class="btn btn-sm btn-success">
+                            <i class="fas fa-pencil-alt"></i> Modifier
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+                </div>
+            {% else %}
+              <p class="bg-secondary"> (Aucun matériel dans la catégorie "{{categorie.categorie}}")</p>
+            {% endfor %}
+            
+          </div>
+           {% endfor %}
+        </div>
 
-    <a href="{{ path('app_materiel_new') }}">Create new</a>
+        
+        <!-- /.card-body -->
+        <div class="card-footer">
+{#           <nav aria-label="Contacts Page Navigation">
+            <ul class="pagination justify-content-center m-0">
+              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+             
+            </ul>
+          </nav> #}
+        </div>
+        <!-- /.card-footer -->
+      </div>
+      <!-- /.card -->
+
+</section>
 {% endblock %}

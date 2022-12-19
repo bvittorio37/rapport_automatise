@@ -18,6 +18,7 @@ class ChoixApprovisionnementType extends AbstractType
             'required'=>true,
             'class' => Materiel::class,
             'placeholder' => 'Sélectionnez le materiel',
+            'label'=> 'Matériel',
             'mapped'=>false,
             'attr' => [
                 'class' => 'form-control',
@@ -27,6 +28,7 @@ class ChoixApprovisionnementType extends AbstractType
             'required'=>true,
             'class' => Site::class,
             'placeholder' => 'Sélectionnez le Site',
+            'label'=> 'Site à approvisionner',
             'mapped'=>false,
             'attr' => [
                 'class' => 'form-control',

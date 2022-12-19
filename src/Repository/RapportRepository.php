@@ -38,7 +38,32 @@ class RapportRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
+    /**
+    * @return Rapport[] Returns an array of Rapport objects
+     */
+        public function rechercher($site, $type, $debut , $fin): array
+        {
+                $qb= $this->createQueryBuilder('r');
+            if($type){
+                $qb->andWhere('r.typeRapport= :type')
+                    ->setParameter('type', $type);
+            }
+            if($site){
+                $qb->andWhere('r.site= :site')
+                    ->setParameter('site', $site);
+            }
+            if($debut){
+                $qb->andWhere('r.debutService >= :debut')
+                    ->setParameter('debut', $debut);
+            }
+            if($fin){
+                $qb->andWhere('r.debutService <= :debut')
+                    ->setParameter('debut', $fin);
+            }
+                return $qb->getQuery()
+                ->getResult() ;
+            }
+    
 //    /**
 //     * @return Rapport[] Returns an array of Rapport objects
 //     */

@@ -1,6 +1,6 @@
 {% extends 'template.html.twig' %}
 {% block pageName %} 
-    Site
+    Département
 {% endblock %}
 
 
@@ -11,36 +11,36 @@
         <div class="col-md-8">
             <div class="card card-primary card-outline">
                 <div class="card-body box-profile">
-                <h3 class="profile-username text-center">{{ site}}</h3>
+                <h3 class="profile-username text-center">{{ departement}}</h3>
 
-                <p class="text-muted text-center">{{ site.remarque}}</p>
-                <p > <b>Liste des pafs:</b></p>
+                <p class="text-muted text-center">{{ departement.remarque}}</p>
+                <p > <b>Liste des  membres:</b></p>
                 <ul class="list-group list-group-unbordered mb-3"> 
-                    {% for paf in site.pafs %}
+                    {% for membre in departement.mailsDepartements %}
                             <li class="list-group-item">
-                            <b>{{paf.paf}}</b></a> 
+                            <b>{{membre.nomEmp}}</b> <a class="ml-5 text-center"> <i class="fas fa-envelope"></i>  {{membre.email}}</a> 
                             <a class="float-right btn btn-sm btn-success text-light   "><i class="fas fa-pencil-alt"></i> Modifier</a>
                             <a class="float-right btn btn-sm btn-danger text-light mr-3 "><i class="fas fa-trash"></i> Suprimer</a>
                         </li>
-                    {% else %}
-                        (auncun paf dans ce site!) 
+                        
                     {% endfor %}
                     
-                </ul>               
+                </ul>
+
+                
                 </div>
                 <div class="card-footer">
-                    <a href=" {{path('app_site_index')}}" class="btn btn-default "><i class="right fas fa-angle-left"></i> Retour</a>
+                <a href=" {{path('app_departement_index')}}" class="btn btn-default "><i class="right fas fa-angle-left"></i> Retour</a>
                     
                 </div>
-               
                 <!-- /.card-body -->
             </div> 
         </div>
-         <div class="col-md-3">
+        <div class="col-md-3">
                 <!-- general form elements -->
                 <div class="card card-primary ">
                     <div class="card-header">
-                    <h3 class="card-title">Ajouter un nouveau paf</h3>
+                    <h3 class="card-title">Ajouter un nouveau membre</h3>
                     </div>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -55,7 +55,7 @@
                     {{ form_end(form) }}
                 </div>
                 <!-- /.card -->
-        </div> 
+        </div>
     
     </div>
             

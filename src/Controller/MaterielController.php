@@ -8,6 +8,7 @@ use App\Entity\Unite;
 use App\Entity\UniteMateriel;
 use App\Form\ChoixMaterielType;
 use App\Form\MaterielType;
+use App\Repository\CategorieMaterielRepository;
 use App\Repository\MaterielRepository;
 use App\Repository\UniteRepository;
 use App\Service\TypageService;
@@ -21,10 +22,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class MaterielController extends AbstractController
 {
     #[Route('/', name: 'app_materiel_index', methods: ['GET'])]
-    public function index(MaterielRepository $materielRepository): Response
+    public function index( CategorieMaterielRepository $catRepo ): Response
     {
+        
         return $this->render('materiel/index.html.twig', [
-            'materiels' => $materielRepository->findAll(),
+            'categories' => $catRepo->findAll(),
         ]);
     }
 
@@ -51,7 +53,7 @@ class MaterielController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $materielRepository->add($materiel, true);
-            return $this->redirectToRoute('app_materiel_nouveau', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_materiel_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('materiel/new.html.twig', [
@@ -68,15 +70,15 @@ class MaterielController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_materiel_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Materiel $materiel, MaterielRepository $materielRepository): Response
+    #[Route('/{id}/modiffier', name: 'app_materiel_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request,Materiel $materiel, MaterielRepository $materielRepository,UniteRepository $uniteRepo,TypageService $typeServe): Response
     {
+       
         $form = $this->createForm(MaterielType::class, $materiel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $materielRepository->add($materiel, true);
-
             return $this->redirectToRoute('app_materiel_index', [], Response::HTTP_SEE_OTHER);
         }
 

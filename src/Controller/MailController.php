@@ -6,10 +6,9 @@ use App\Entity\Mail;
 use App\Form\MailType;
 use App\Repository\MailRepository;
 use App\Repository\RapportRepository;
+use App\Service\EtatStockService;
 use App\Service\MailService;
 use App\Service\PdfService;
-use App\Service\RapportService;
-use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,45 +30,64 @@ class MailController extends AbstractController
     }
 
     #[Route('/{id}/{nompdf}/new', name: 'app_mail_new', methods: ['GET', 'POST'])]
-    public function new(Request $request,MailService $mailServe, MailRepository $mailRepository,RapportService $rapportServe,MailerInterface $mailer,RapportRepository $rapRepos,PdfService $pdfServe): Response
+    public function new(Request $request,MailService $mailServe, MailRepository $mailRepository,EtatStockService $etatService,MailerInterface $mailer,RapportRepository $rapRepos,PdfService $pdfServe): Response
     {
         $idRapport = $request->get('id');
         $nompdf = $request->get('nompdf');
         $rapport=$rapRepos->find($idRapport);
-        $html= $this->render('depart/show.html.twig', ['rapport' => $rapport]);
+        $typeRapport = $rapport->getTypeRapport()->getId();
+        $html= $this->render('rapport/show.html.twig', ['rapport' => $rapport]);
         $pdf=$pdfServe->genererPdf($html);
         $mail = new Mail();
         $subject = str_replace('-',' ',$nompdf);
         $mail->setObject($subject);
+        $nomsPdf =  array();
+        $nomsPdf[0]= $nompdf;
+        /// generation de pdf etat de stock
+         if ($typeRapport==2){
+           $nomsPdf[1] = 'etat-consommables';
+            //dd($pdfEtat);
+         }
+         
+
         $form = $this->createForm(MailType::class, $mail);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $to=$mailServe->getMailsTo($mail->getDepartement());
-            $mail->setDe($mail->getCc());
-            $cc= $mailServe->getMailsCc($mail->getCc());
+            //$to=$mailServe->getMailsTo($mail->getDepartement());
+            $mail->setDe($rapport->getUtilisateur()->getEmail());
+            $cc= $mailServe->getMailsCc($mail->getCc(),$mail->getDepartement());
+            //dd($rapport->getUtilisateur()->getEmail());
             $email = (new Email())
                 ->from($rapport->getUtilisateur()->getEmail())
-                ->to(...$to)
+                //->to(...$to)
                 ->cc(...$cc)
                 ->subject($mail->getObject())
                 ->text($mail->getMessage())
                 ->attach($pdf,sprintf('%s.pdf', $nompdf) , 'application/pdf');
+
+                if($typeRapport==2)
+                {
+                    $htmlEtat= $this->render('rapport/etats.html.twig', ['rapport' => $rapport,'etats'=>$etatService->getEtatConsommbale($rapport->getId())]);
+                    $EtatPdf= new PdfService();
+                    $pdfEtat=$EtatPdf->genererPdf($htmlEtat);
+                    $email->attach($pdfEtat,sprintf('%s.pdf', 'etat-consommables') , 'application/pdf');
+                }
             try{
-                //$mailer->send($email);
+                $mailer->send($email);
+                $mailRepository->add($mail, true);
             }
             
             catch(TransportExceptionInterface $e){
                dd($e->getMessage()); 
             }
-            
-            $mailRepository->add($mail, true);
             return $this->redirectToRoute('arrive_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('mail/new.html.twig', [
             'mail' => $mail,
             'form' => $form,
+            'nomsPdf'=> $nomsPdf,
         ]);
     }
 

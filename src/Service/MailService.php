@@ -24,15 +24,19 @@ class MailService
         return $email;
     }
 
-    public function getMailsCc(String $cc){
+    public function getMailsCc(String $cc=null, Departement $departement){
         if($cc){
             $mailsCc = explode(",",$cc);
             foreach ($mailsCc as $key ) {
                 $email[] = new Address($key);
-            }
-            return $email;
+            }    
         }
-        return null;
+        $mailsDeps = $this->mailsDepRepos->findBy(['Departement'=>$departement]);
+        foreach ($mailsDeps as $key ) {
+           $email[] = new Address($key->getEmail());
+        }
+        return $email;
+       
   
     }
 

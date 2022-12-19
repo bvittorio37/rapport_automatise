@@ -57,6 +57,12 @@ class Rapport
     #[ORM\JoinColumn(nullable: false)]
     private $site;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $annule;
+
+    #[ORM\Column(type: 'string', length: 125, nullable: true)]
+    private $cause;
+
     public function __construct()
     {
         $this->visaParRapports = new ArrayCollection();
@@ -249,6 +255,30 @@ class Rapport
     public function setSite(?Site $site): self
     {
         $this->site = $site;
+
+        return $this;
+    }
+
+    public function isAnnule(): ?bool
+    {
+        return $this->annule;
+    }
+
+    public function setAnnule(?bool $annule): self
+    {
+        $this->annule = $annule;
+
+        return $this;
+    }
+
+    public function getCause(): ?string
+    {
+        return $this->cause;
+    }
+
+    public function setCause(?string $cause): self
+    {
+        $this->cause = $cause;
 
         return $this;
     }

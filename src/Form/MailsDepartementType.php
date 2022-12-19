@@ -14,7 +14,6 @@ class MailsDepartementType extends AbstractType
         $builder
             ->add('nomEmp')
             ->add('email')
-            ->add('Departement')
         ;
     }
 

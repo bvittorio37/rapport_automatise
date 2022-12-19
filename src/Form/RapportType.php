@@ -27,7 +27,7 @@ class RapportType extends AbstractType
                     'class' => 'form-control',
                 ],
             ])
-            ->add('numeroVol')
+            /* ->add('numeroVol') */
             ->add('debutService', DateTimeType::class, array(
                 'required' => true,
                 'widget' => 'single_text',
@@ -54,7 +54,7 @@ class RapportType extends AbstractType
                     'html5' => false,
                 ],
                 ))
-            ->add('datePrevue', DateTimeType::class, array(
+            /* ->add('datePrevue', DateTimeType::class, array(
                 'required' => false,
                 'widget' => 'single_text',
                 'attr' => [
@@ -71,13 +71,13 @@ class RapportType extends AbstractType
                     // 'data-provide' => 'datetimepicker',
                     'html5' => false,
                 ],
-                ))
+                ))*/
              ->add('visaParRapports', CollectionType::class, [
                 'entry_type' => VisaRapportType::class,
                 'entry_options' => ['label' => false],
                 //'allow_add' => true,
                 'by_reference' => false,
-            ]) 
+            ])  
             ->add('remarque')
         ;
     }

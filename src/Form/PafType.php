@@ -13,7 +13,6 @@ class PafType extends AbstractType
     {
         $builder
             ->add('paf')
-            ->add('site')
         ;
     }
 

@@ -1,37 +1,61 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Departement index{% endblock %}
+{% extends 'template.html.twig' %}
+{% block pageName %} 
+    Département
+{% endblock %}
+
 
 {% block body %}
-    <h1>Departement index</h1>
+<section class="content">
+      <!-- Default box -->
+      <div class="card card-solid card-primary card-outline">
+        <div class="card-header">
+                <h1 class="card-title">La liste des départements</h1>
+        </div>
+        <div class="card-body pb-0">
+       {#  {% for categorie in categories %} #}
+            
+          <div class="row ">
+            {% for departement in departements %}
+                <div class="col-12 col-sm-6 col-md-3 ">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>NomDepart</th>
-                <th>Remarque</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for departement in departements %}
-            <tr>
-                <td>{{ departement.id }}</td>
-                <td>{{ departement.nomDepart }}</td>
-                <td>{{ departement.remarque }}</td>
-                <td>
-                    <a href="{{ path('app_departement_show', {'id': departement.id}) }}">show</a>
-                    <a href="{{ path('app_departement_edit', {'id': departement.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                <div class="card bg-light">
+                    <div class="card-header">
+                            <h1 class="card-title">Département {{ departement.nomDepart }}</h1>
+                    </div>
+                    <div class="card-body pt-0">
+                            <p class="text-muted text-sm"><b>Remarques: </b>{{ departement.remarque }} </p>
+                            
+                    </div>
+                    <div class="card-footer">
+                        <div >
+                            <a href="{{path('app_departement_edit', {'id': departement.id})}}" class="btn btn-sm btn-success">
+                                <i class="fas fa-pencil-alt"></i> Modifier
+                            </a>
+                            <a href="{{path('app_departement_show', {'id': departement.id})}}" class="btn btn-info btn-sm  ">
+                                <i class="fas fa-eye "></i> Détail</a>
+                        </div>
+                        
+                    </div>
+                </div>
+                </div>
+            {% else %}
+              <p class="bg-secondary"> (Aucun département)</p>
+            {% endfor %}
+            
+          </div>
+           {# {% endfor %} #}
+        </div>
 
-    <a href="{{ path('app_departement_new') }}">Create new</a>
+        
+        <!-- /.card-body -->
+        <div class="card-footer">
+            <a href="{{ path('app_departement_new') }}" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Ajouter un département</a>
+        
+        </div>
+        <!-- /.card-footer -->
+      </div>
+      <!-- /.card -->
+
+</section>
 {% endblock %}

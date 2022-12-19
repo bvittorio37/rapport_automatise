@@ -11,9 +11,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                    <h3 class="card-title mr-5">L'historique de stcok du magasin</h3>
-                   
-            
+                    <h3 class="card-title mr-5">L'historique d'affectation des utsilisateurs</h3>
                     <div class="card-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">
                     
@@ -32,11 +30,11 @@
                   <thead>
                     <tr>
                         <th></th>
-                        <th>Date de Stock</th>
-                        <th>Mouvement </th>
-                        <th>Matériel</th>
-                        <th>Quantité</th>
-                        <th>Remarques</th>
+                        <th>Noms</th>
+                        <th>Prenoms</th>
+                        <th>ancienSite</th>
+                        <th>SiteAffectation</th>
+                        <th>DateAffectation</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -44,11 +42,11 @@
 
                     <tr>
                         <td>{{ i + 1 }}</td>
-                        <td>{{ historique.dateStock ? historique.dateStock|date('Y-m-d  h:i:s') : '-' }}</td>
-                        <td >{{historique.mouvement ? : '-' }}</td>
-                        <td >{{historique.materiel ? : '-' }}</td>
-                        <td >{{historique.quantite ? : '-' }}</td>
-                        <td >{{historique.remarque ? : '-' }}</td>
+                        <td >{{historique.nom }}</td>
+                        <td >{{historique.prenom }}</td>
+                        <td >{{historique.ancienSite }}</td>
+                        <td >{{historique.siteAffectation  }}</td>
+                         <td>{{ historique.dateAffectation ? historique.dateAffectation|date('d/m/Y  h:i') : '-' }}</td>
 
                     </tr>
                 {% else %}

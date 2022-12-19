@@ -17,6 +17,7 @@ class UserType extends AbstractType
             ->add('noms')
             ->add('prenoms')
             ->add('email')
+            ->add('telephones')
             ->add('roles',ChoiceType::class,[
                 'multiple' => true,
                 'expanded' => true,

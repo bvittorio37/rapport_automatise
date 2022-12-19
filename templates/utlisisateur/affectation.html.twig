@@ -18,23 +18,25 @@
         <div class="row">
             <!-- left column -->
             <div class="col-md-12">
-                <div class="card card-primary">
+                <div class="card card-primary card-outline">
                 <div class="card-header">
-                    <h1 class="card-title">Ajouter un nouvel utilisateur</h1>
+                    <h1 class="card-title">Afectation utilisateur</h1>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
                 {{ form_start(form) }}
                     <div class="card-body">
                     <div class="form-group">
-                         <h6>Affecter : {{user}} </h6>
+                         <h3 class="text-center"><i class="far fa-user"></i> : {{user}} </h3>
+                         <h4 class="text-center"><b>site Actuel:</b> {{user.site ? : 'acune site' }} </h4>
                     </div>
                     <div class="form-group">
                          {{ form_row(form.site, {label: "Site d'affectation", 'attr': {'class': 'form-control'}}) }}
                     </div>
                     <!-- /.card-body -->
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Affecter</button>           
+                    <div class="card-footer text-center ">
+                        <a href=" {{path('app_utilisateur')}}" class="btn btn-default float-left "><i class="right fas fa-angle-left"></i> Retour</a>
+                        <button type="submit" class="btn  btn-primary ">Affecter</button>           
                     </div>
                 {{ form_end(form) }}
                 </div>

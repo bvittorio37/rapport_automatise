@@ -26,6 +26,7 @@ class ApprovisonnementController extends AbstractController
     #[Route('/', name: 'app_approvisonnement')]
     public function index(Request $request): Response
     {
+       
         $form = $this->createForm(ChoixApprovisionnementType::class);
         $form->handleRequest($request);
 
@@ -37,7 +38,7 @@ class ApprovisonnementController extends AbstractController
             ], Response::HTTP_SEE_OTHER);
         }
         return $this->renderForm('approvisonnement/approvisionnement.html.twig', [
-            /* 'stock' => $stock, */
+            'stock' => null,
             'form' => $form,
         ]);
     }
@@ -94,8 +95,8 @@ class ApprovisonnementController extends AbstractController
             return $this->redirectToRoute('app_approvisonnement', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('stock/achat.html.twig', [
-           
+        return $this->renderForm('approvisonnement/approvisionnement.html.twig', [
+           'stock'=> $stockSite,
             'form' => $form,
         ]);
     }

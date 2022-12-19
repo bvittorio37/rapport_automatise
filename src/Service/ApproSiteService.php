@@ -19,8 +19,7 @@ class ApproSiteService
             if ($type==0){
                 //sous-mettre l'entree à la valeur de la quatite
                 $stockSite->setEntree($data["quantite"]->getViewData());
-                //mettre à 0 la valeur consommé
-                $stockSite->setConsommation(0);
+                
                
             }
             // Si c'est une sortie en stock

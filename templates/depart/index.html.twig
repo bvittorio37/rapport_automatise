@@ -1,57 +1,29 @@
-{# {% extends 'base.html.twig' %}
 
-{% block title %}Rapport index{% endblock %}
-
-{% block body %}
-    <h1>Rapport index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Numero de vol</th>
-                <th>Date de Vol</th>
-                <th>Date de Rapport</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for rapport in rapports %}
-            <tr>
-                <td>{{ rapport.id }}</td>
-                <td>{{ rapport.numeroVol }}</td>
-                <td>{{ rapport.dateVol ? rapport.dateVol|date('Y-m-d') : '' }}</td>
-                <td>{{ rapport.getDateRapport() ? rapport.getDateRapport()|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_rapport_show', {'id': rapport.id}) }}">show</a>
-                    <a href="{{ path('app_rapport_edit', {'id': rapport.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_rapport_new') }}">Create new</a>
-{% endblock %} #}
 {% extends 'template.html.twig' %}
 {% block pageName %} 
- Depart
+  Départ
 {% endblock %}
 
 {% block body %}
     <section class="content">
       <div class="container-fluid">
         <div class="row">
+            <div class="col-lg-3 col-6">
+              <!-- small box -->
+              <div class="small-box bg-info">
+                <a href="{{ path('app_depart_nouveau') }}" class="small-box-footer"><i class="fas fa-plus"> </i>  Nouveau Rapport </a>
+                              </div>
+            </div>
+            <!-- ./col -->
+        </div>
+        <div class="row">
           <div class="col-12">
-            <div class="card">
+            <div class="card card-primary card-outline">
               <div class="card-header">
-                    <h3 class="card-title mr-5">Liste des Rapport de Départ</h3>
+                    <h3 class="card-title mr-5">Liste des rapports départ</h3>
                    
             
-                    <div class="card-tools">
+                    {# <div class="card-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">
                     
                             <input type="text" name="table_search" class="form-control float-right" placeholder="Recherche">
@@ -61,7 +33,7 @@
                             </div>
                         </div>
                     
-                    </div>
+                    </div> #}
                 </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0 " style="height: 350px;">
@@ -69,26 +41,27 @@
                   <thead>
                     <tr>
                         <th></th>
-                        <th>Numero de vol</th>
-                        <th>Date de Vol</th>
+                        <th>Site</th>
+                        <th>Type de vol</th>
                         <th>Date de Rapport</th>
-                        <th></th>
+                        <th>Technicien</th>
                         <th></th>
                     </tr>
                   </thead>
                   <tbody>
-                {% for rapport in rapports %}
+                {% for i,rapport in rapports %}
 
                     <tr>
-                        <td>{{ rapport.id }}</td>
-                        <td>{{ rapport.numeroVol ? : '-' }}</td>
-                        <td>{{ rapport.dateVol ? rapport.dateVol|date('Y-m-d') : '-' }}</td>
-                        <td >{{ rapport.getDateRapport() ? rapport.getDateRapport()|date('Y-m-d') : '-' }}</td>
-
+                        <td>{{ i +1 }}</td>
+                        <td>{{ rapport.site }} </td>
+                        <td>{{ rapport.typeRapport }}</td>
+                        <td>{{ rapport.getDateRapport() ? rapport.getDateRapport()|date('Y/m/d') : '-' }}</td>
+                        <td>{{ rapport.utilisateur }}</td>
+                        <td><a href="{{ path('app_rapport_show',{'id': rapport.id}) }}" class="btn btn-info"><i class="fas fa-eye"> Détail</i></a></td>
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="5" >(Aucun Rapport effectué)</td>
+                        <td colspan="5"  class="text-center">(Aucun rapport trouvé)</td>
                     </tr>
                 {% endfor %}
                   </tbody>
@@ -98,7 +71,7 @@
                <!-- /.card-footer -->
             
                 <div class="card-footer clearfix">
-                    <a class="ml-5 btn btn-sm btn-success text-light float-right"  href ="{{ path('app_depart_nouveau') }}"><i class="fas fa-plus"> Nouveau rapport</i> </a>
+                   {#  <a class="ml-5 btn btn-sm btn-success text-light float-right"  href ="{{ path('app_arrive_nouveau') }}"><i class="fas fa-plus"> Nouveau rapport</i> </a> #}
                 </div>
                 <!-- /.card-footer -->
             </div>

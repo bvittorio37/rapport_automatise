@@ -18,6 +18,7 @@ class EtiquetteType extends AbstractType
             ->add('debutSerie', NumberType::class,[
                 'required'=>true,
                 'mapped' => false,
+                'label' => 'Numéro début de série',
                 'constraints'=>[
                     new NotBlank([
                         'message'=> 'Ce champ ne doit pas être vide'
@@ -28,19 +29,21 @@ class EtiquetteType extends AbstractType
             ->add('finSerie', NumberType::class,[
                 'required'=>true,
                 'mapped' => false,
+                'label' => 'Numéro fin de série',
                 'constraints'=>[
                     new NotBlank([
                         'message'=> 'Ce champ ne doit pas être vide'
                     ]),
                 ],
             ])
-            ->add('numBobine', NumberType::class,[
+            /* ->add('numBobine', NumberType::class,[
                 'required'=>false,
                 'mapped' => false,
-            ])
+            ]) */
             ->add('reference', TypeTextType::class,[
                 'required'=>true,
                 'mapped' => false,
+                'label' => 'Référrence',
                 'constraints'=>[
                     new NotBlank([
                         'message'=> 'Ce champ ne doit pas être vide'

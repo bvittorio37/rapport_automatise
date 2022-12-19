@@ -37,10 +37,10 @@ class DepartController extends AbstractController
         if ($form->isSubmitted() && $form->isValid() && $this->getUser()) {
             $rapport->setUtilisateur($this->getUser());
             $rapport->setTypeRapport($typeService->getDepartType());
-            $nompdf=("rapport-de-vol-depart-".date("Y-m-d"));
+            $nompdf=("rapport-de-vol-depart-".$rapport->getDateRapport()->format('Y-m-d') );
             $rapport->setNomPdf($nompdf);
-           // $rapportRepository->add($rapport, true);
-            return $this->redirectToRoute('app_mail_new', ['id'=>2,'nompdf'=>$nompdf], Response::HTTP_SEE_OTHER);
+            $rapportRepository->add($rapport, true);
+            return $this->redirectToRoute('app_mail_new', ['id'=>$rapport->getId(),'nompdf'=>$nompdf], Response::HTTP_SEE_OTHER);
         }
        
         return $this->renderForm('depart/new.html.twig', [

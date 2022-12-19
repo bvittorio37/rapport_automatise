@@ -1,13 +1,50 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Edit Departement{% endblock %}
+{% extends 'template.html.twig' %}
+{% block pageName %} 
+  Departement
+{% endblock %}
+  {% block javascript %}
+ {% endblock %}
 
 {% block body %}
-    <h1>Edit Departement</h1>
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h1 class="card-title">Mise à jour du {{departement}}/h1>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                 
+                        {{ form_start(form) }}
+                            <div class="card-body">
+                                <div class="form-group">
+                                    {{ form_row(form.nomDepart, {label: 'Nom du Département'}) }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form_row(form.remarque, {label: 'Remarque'}) }}
+                                </div>
+                            </div>
 
-    {{ include('departement/_form.html.twig', {'button_label': 'Update'}) }}
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+                                <button type="submit" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Mettre à jour</button>
+                        
+                                <a href="{{ path('app_departement_index') }}" class="btn btn-default "><i class="right fas fa-angle-left"></i> Retour</a>
+                            </div>
+                        {{ form_end(form) }}
+                    
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</section>
 
-    <a href="{{ path('app_departement_index') }}">back to list</a>
 
-    {{ include('departement/_delete_form.html.twig') }}
+
 {% endblock %}
+

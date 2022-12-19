@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Departement;
+use App\Entity\MailsDepartement;
 use App\Form\DepartementType;
+use App\Form\MailsDepartementType;
 use App\Repository\DepartementRepository;
+use App\Repository\MailsDepartementRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,11 +43,24 @@ class DepartementController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_departement_show', methods: ['GET'])]
-    public function show(Departement $departement): Response
+    #[Route('/{id}', name: 'app_departement_show', methods: ['GET', 'POST'])]
+    public function show(Request $request, Departement $departement,MailsDepartementRepository $mailsDepartementRepository): Response
     {
-        return $this->render('departement/show.html.twig', [
+        $mailsDepartement = new MailsDepartement();
+        $mailsDepartement->setDepartement($departement);
+        $form = $this->createForm(MailsDepartementType::class, $mailsDepartement);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            dd('aa');
+            $mailsDepartementRepository->add($mailsDepartement, true);
+            return $this->redirectToRoute('app_departement_show', ['id'=>$departement->getId()]);
+        }
+
+        return $this->renderForm('departement/membre.html.twig', [
             'departement' => $departement,
+            'mails_departement' => $mailsDepartement,
+            'form' => $form,
         ]);
     }
 
@@ -66,7 +82,7 @@ class DepartementController extends AbstractController
         ]);
     }
 
- /*    #[Route('/{id}', name: 'app_departement_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'app_departement_delete', methods: ['POST'])]
     public function delete(Request $request, Departement $departement, DepartementRepository $departementRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$departement->getId(), $request->request->get('_token'))) {
@@ -74,5 +90,5 @@ class DepartementController extends AbstractController
         }
 
         return $this->redirectToRoute('app_departement_index', [], Response::HTTP_SEE_OTHER);
-    } */
+    }
 }

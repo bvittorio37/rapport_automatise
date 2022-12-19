@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Rapport;
-use App\Form\Rapport1Type;
 use App\Form\RapportStockType;
 use App\Form\RapportType;
 use App\Repository\RapportRepository;
@@ -13,7 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[Route('/arrive')]
 class ArriveController extends AbstractController
@@ -29,22 +27,16 @@ class ArriveController extends AbstractController
     #[Route('/nouveau', name: 'app_arrive_nouveau', methods: ['GET', 'POST'])]
     public function new(Request $request, RapportRepository $rapportRepository, TypeRapportService $typeService,RapportService $rapportServe): Response
     {
-
         $rapport = new Rapport();
         /// Ajoute les visas spécifiques au rapport de vol arrivé
         $rapportServe->AjouterLesVisas($rapport,'A');
-
-
         $form = $this->createForm(RapportType::class, $rapport);
         $form->handleRequest($request);
         //dd($typeService->getDepartType());
-
         if ($form->isSubmitted() && $form->isValid() && $this->getUser()) {
-            dd($rapport);
             $rapport->setUtilisateur($this->getUser());
             $rapport->setTypeRapport($typeService->getArriveType());
-            
-            $nompdf=("rapport-de-vol-arrive-".date("Y-m-d"));
+            $nompdf=("rapport-de-vol-arrive-".$rapport->getDateRapport()->format('d-m-Y'));
             $rapport->setNomPdf($nompdf);
             $rapportRepository->add($rapport, true);
             return $this->redirectToRoute('app_arrive_stock', 
@@ -65,14 +57,13 @@ class ArriveController extends AbstractController
 
         //dd($rapport);
         $rapportServe->ajouterDesStocks($rapport);
-    
         $form = $this->createForm(RapportStockType::class, $rapport);
+        //dd($form->get('stockSites')->get(0)->get('consommation')->getConfig()->getEmptyData());
         $form->handleRequest($request);
         //dd($typeService->getDepartType());
 
         if ($form->isSubmitted() && $form->isValid() && $this->getUser()) {
             $rapportRepository->add($rapport, true);
-            dd('eto');
             return $this->redirectToRoute('app_mail_new', ['id'=>$rapport->getId(),'nompdf'=>$rapport->getNomPdf()], Response::HTTP_SEE_OTHER);
         }
         //dd($form);

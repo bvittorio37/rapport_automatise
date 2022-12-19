@@ -33,7 +33,7 @@ class Rapport1Type extends AbstractType
                     'html5' => false,
                 ],
                 ))
-            ->add('datePrevue', DateTimeType::class, array(
+           /*  ->add('datePrevue', DateTimeType::class, array(
                 'required' => false,
                 'widget' => 'single_text',
                 'attr' => [
@@ -50,8 +50,8 @@ class Rapport1Type extends AbstractType
                     // 'data-provide' => 'datetimepicker',
                     'html5' => false,
                 ],
-                ))
-            ->add('remarque')
+                )) */
+                ->add('remarque')
         ;
     }
 

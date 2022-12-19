@@ -17,7 +17,8 @@ class ChoixMaterielType extends AbstractType
         ->add('materiel', EntityType::class, [
             'required'=>false,
             'class' => Materiel::class,
-            'placeholder' => 'Sélectionnez un materiel',
+            'placeholder' => 'Sélectionnez un matériel',
+            'label' => 'Matériel à stocker',
             'mapped'=>true,
             'constraints' => [new NotNull([
                 'message' => 'Aucun matériel séléctionné! ',

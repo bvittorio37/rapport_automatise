@@ -37,6 +37,7 @@ class MaterielType extends AbstractType
                     'class' => 'form-control',
                 ],
             ])  */
+            
             ->add('uniteMateriels', CollectionType::class, [
                 'entry_type' => UniteMaterielType::class,
                 'entry_options' => ['label' => false],

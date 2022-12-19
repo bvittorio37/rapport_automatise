@@ -1,13 +1,118 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Edit Materiel{% endblock %}
+{% extends 'template.html.twig' %}
+{% block pageName %} 
+    Materiel
+{% endblock %}
+
 
 {% block body %}
-    <h1>Edit Materiel</h1>
+<section class="content">
+      <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-12">
+                <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h1 class="card-title">Modifier le matériel: {{materiel}}</h1>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <div class="card-body">
+                {{ form_start(form) }}
+                    <div class="card-body">
+                    <div class="form-group">
+                           {{ form_row(form.categorie, {label: 'categorie', 'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <div class="form-group">
+                            {{ form_row(form.materiel, {label: 'Nom du materiel'}) }}
+                        </div>
+                    <div class="row">
+                        {# <div class="col-6 form-group">
+                           {{ form_row(form.unite, {label: "Choisir l'unité"}) }}
+                        </div> #}
+                        
+                        
+                    </div>
+                     <div class="form-group">
+                            {{ form_row(form.uniteMateriels[0].unite, {label: "L'unité qui représente le materiel",required:true}) }}
+                      </div>
+                    <div class="row">
+                        <div class="col-6 form-group" style="display:none;">
+                           {{ form_row(form.uniteMateriels[0].qunatite, {label: "L'unité représenatant le materiel",required:false}) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 form-group" style="display:none;">
+                           {{ form_row(form.uniteMateriels[1].unite, {label: "Nom de l'emballage (ex: carton)",required:false}) }}
+                        </div>
+                        <div class="col-12 form-group  ">
+                            {{ form_row(form.uniteMateriels[1].qunatite, {label: "Nombre de materiel dans un carton"}) }}
+                        </div>
+                    </div>
+                    
+                    {#  <ul class="emballages"
+                      data-index="{{ form.emballages|length > 0 ? form.emballages|last.vars.nom+ 1 : 0 }}"
+                      data-prototype="{{ form_widget(form.emballages.vars.prototype)|e('html_attr') }}"
+                    ></ul>
+                    <button type="button" class="add_item_link" data-collection-holder-class="emballages">Ajouter emballage</button>
+                    #}
 
-    {{ include('materiel/_form.html.twig', {'button_label': 'Update'}) }}
+                    
+                    <!-- /.card-body -->
+                    <div calss="form-group col-4 offset-4 ">
+                        <button type="button" class="btn btn-block btn-success btn-lg" data-toggle="modal" data-target="#modal-sm" >Modifier</button>
+                    </div>
+                    <div class="modal fade" id="modal-sm">
+                          <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4 class="modal-title">Voulez vous vraiment enregistrer ?</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                                <button type="submit" class="btn btn-primary">Oui</button>
+                              </div>
+                            </div>
+                            <!-- /.modal-content -->
+                          </div>
+                          <!-- /.modal-dialog -->
+                    </div>
+                {{ form_end(form) }}
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</section>
+{% endblock %}
 
-    <a href="{{ path('app_materiel_index') }}">back to list</a>
+{% block javascript %}
+ {# <script>
+      
+      const addFormToCollection = (e) => {
+            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
 
-    {{ include('materiel/_delete_form.html.twig') }}
+            const item = document.createElement('li');
+
+            item.innerHTML = collectionHolder
+              .dataset
+              .prototype
+              .replace(
+                /__name__/g,
+                collectionHolder.dataset.index
+              );
+
+            collectionHolder.appendChild(item);
+
+            collectionHolder.dataset.index++;
+        };
+      document
+        .querySelectorAll('.add_item_link')
+          .forEach(btn => {
+              btn.addEventListener("click", addFormToCollection)
+          });
+ </script> #}
 {% endblock %}

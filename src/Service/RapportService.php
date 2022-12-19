@@ -43,34 +43,37 @@ class RapportService
 
 
     public function ajouterDesStocks(Rapport $rapport){
-      // Prendre tous les materiels de categorie Site
-        $cat = $this->catRepo->findOneBy(['categorie'=>'Matériel site']);
-        $listeMateriels = $this->matRepo->findBy(['categorie'=>$cat]);
-      foreach ($listeMateriels as $materiel ) {
+      if(!$rapport->getStockSites()->get(0)){
+          // Prendre tous les materiels de categorie Site
+            $cat = $this->catRepo->findOneBy(['categorie'=>'Matériel site']);
+            $listeMateriels = $this->matRepo->findBy(['categorie'=>$cat]);
+          foreach ($listeMateriels as $materiel ) {
 
-        if($materiel->getMateriel()=='Etiquette'){
-          // Prendre tous les pafs dans le Site Choisi
-            $pafs= $this->pafRepo->findBy(['site'=>$rapport->getSite()]);
-          // Iterer les pafs et inser chaque paf dans un nouvel stock
-            foreach ($pafs as $paf) {
-                $stockSite = new StockSite();
-                $stockSite->setmateriel($materiel);
-                $stockSite->setPaf($paf);
-                $stockSite->setSite($rapport->getSite());
-                $stockSite->setDateStock(date_create(date("Y-m-d h:m:s")));
-                $rapport->addStockSite($stockSite);
-                
-            } 
-        }
-        else{
-          $stockSite = new StockSite();
-          $stockSite->setmateriel($materiel);
-          $stockSite->setSite($rapport->getSite());
-          $stockSite->setDateStock(date_create(date("Y-m-d h:m:s")));
-          $rapport->addStockSite($stockSite);
-          
-        }
-        
+            if($materiel->getMateriel()=='Etiquette'){
+              // Prendre tous les pafs dans le Site Choisi
+                $pafs= $this->pafRepo->findBy(['site'=>$rapport->getSite()]);
+              // Iterer les pafs et inser chaque paf dans un nouvel stock
+                foreach ($pafs as $paf) {
+                    $stockSite = new StockSite();
+                    $stockSite->setmateriel($materiel);
+                    $stockSite->setPaf($paf);
+                    $stockSite->setAbimmees(0);
+                    $stockSite->setConsommation(0);
+                    $stockSite->setSite($rapport->getSite());
+                    $stockSite->setDateStock(date_create(date("Y-m-d h:m:s")));
+                    $rapport->addStockSite($stockSite);
+                    
+                } 
+            }
+            else{
+              $stockSite = new StockSite();
+              $stockSite->setmateriel($materiel);
+              $stockSite->setSite($rapport->getSite());
+              $stockSite->setDateStock(date_create(date("Y-m-d h:m:s")));
+              $stockSite->setConsommation(0);
+              $rapport->addStockSite($stockSite);
+            }
+          }
       }
     }
     public function getDateRapport(Rapport $rapport){

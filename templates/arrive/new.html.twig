@@ -12,7 +12,7 @@
             <!-- left column -->
             <div class="col-md-12">
                 <div class="card ">
-                <div class="card-header">
+                <div class="card-header card-primary card-outline">
                     <h1 class="card-title">Effectuer un rapport de vol Arrivé</h1>
                 </div>
                 <!-- /.card-header -->
@@ -23,9 +23,9 @@
                     <div class="form-group">
                            {{ form_row(form.site, {label: 'Site'}) }}
                     </div>
-                    <div class="form-group">
+                    {# <div class="form-group">
                            {{ form_row(form.numeroVol, {label: 'N° de vol'}) }}
-                    </div>
+                    </div> #}
                     <div class="row">
                         <div class="col-6 form-group">
                             {{ form_row(form.debutService, {label: 'Début de Service'}) }}
@@ -34,14 +34,14 @@
                             {{ form_row(form.finService, {label: 'Fin de Service'}) }}
                         </div>
                     </div>
-                    <div class="row">
+                    {# <div class="row">
                         <div class=" col-6 form-group">
                             {{ form_row(form.datePrevue, {label: 'Date prévue'}) }}
                         </div>
                         <div class="col-6 form-group">
                             {{ form_row(form.dateVol, {label: 'Date vol'}) }}
                         </div>
-                    </div>
+                    </div> #}
                     <div class="row">
                     
                       {% for vpr in form.visaParRapports %}
@@ -58,49 +58,26 @@
                             {{ form_row(form.remarque, {label: 'Remarque'}) }}
                     </div>
                     <!-- /.card-body -->
-                     <div calss="form-group col-4 offset-4 ">
-                        <button type="button" class="btn btn-block btn-success btn-lg" data-toggle="modal" data-target="#modal-lg" >Suivant</button>
-                      </div>
-                       <div class="modal fade" id="modal-lg">
-                          <div class="modal-dialog modal-lg">
+                    <div calss="form-group col-4 offset-4 ">
+                        <button type="button" class="btn btn-block btn-success btn-lg" data-toggle="modal" data-target="#modal-sm" >Suivant</button>
+                    </div>
+                    <div class="modal fade" id="modal-sm">
+                          <div class="modal-dialog modal-sm">
                             <div class="modal-content">
                               <div class="modal-header">
-                                <h4 class="modal-title">Aperçu des informations</h4>
+                                <h6 class="modal-title">Voulez vous vraimenet enregistrer ?</h6>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
                                 </button>
                               </div>
-                              <div class="modal-body">
-                                  <div class="card">
-                                    <!-- /.card-header -->
-                                    <div class="card-body">
-                                      <dl class="row">
-                                        <dt class="col-sm-4">Vol N° :</dt>
-                                        <dd id="numvol" class="col-sm-8"></dd>
-                                        <dt  class="col-sm-4">Début service :</dt>
-                                        <dd id="debutServe" class="col-sm-8"></dd>
-                                        <dt  class="col-sm-4">Fin service :</dt>
-                                        <dd id="finServe" class="col-sm-8"></dd>
-                                        <dt  class="col-sm-4">Date prévue de vol</dt>
-                                        <dd  id="prevuvol" class="col-sm-8"></dd>
-                                        <dt  class="col-sm-4">Date de vol</dt>
-                                        <dd id="detevol" class="col-sm-8"></dd>
-                                        <dt class="col-sm-4">Nombre de visa scanné:</dt>
-                                        <dd class="col-sm-8"></dd>
-                                        <dt class="col-sm-4">Remarques :</dt>
-                                        <dd id="remarques" class="col-sm-8"></dd>
-                                      </dl>
-                                    </div>
-                                    <!-- /.card-body -->
-                                  </div>
-                              </div>
+                               
                               <div class="modal-footer justify-content-between">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
                                 <button type="submit" class="btn btn-primary">Valider</button>
                               </div>
                             </div>
                             <!-- /.modal-content -->
-                          </div>
+                    </div>
                           <!-- /.modal-dialog -->
                         </div>
                 {{ form_end(form) }}

@@ -1,37 +1,80 @@
-{% extends 'base.html.twig' %}
 
-{% block title %}Visa index{% endblock %}
+{% extends 'template.html.twig' %}
+{% block pageName %} 
+    Visa
+{% endblock %}
+
 
 {% block body %}
-    <h1>Visa index</h1>
+<section class="content">
+      <!-- Default box -->
+      <div class="card card-solid">
+        <div class="card-body pb-0">
+  
+            <h4> Visas de vol arrivé</h4>
+          <div class="row ">
+             {% for visa in visas %}
+                {% if visa.type == 'A' %}
+                    <div class="col-12 col-sm-6 col-md-3 ">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Intitule</th>
-                <th>Remarque</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for visa in visas %}
-            <tr>
-                <td>{{ visa.id }}</td>
-                <td>{{ visa.intitule }}</td>
-                <td>{{ visa.remarque }}</td>
-                <td>
-                    <a href="{{ path('app_visa_show', {'id': visa.id}) }}">show</a>
-                    <a href="{{ path('app_visa_edit', {'id': visa.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                        <div class="card bg-light">
+                            <div class="card-body pt-0">
+                                    <h2 class="lead"><b>{{visa.intitule}}</b></h2>
+                                    <p class="text-muted text-sm"><b> Remarques :</b> {{visa.remarque ? : '(Pas de remarque)'}} </p>  
+                            </div>
+                            <div class="card-footer">
+                                <div class="text-center">
+                                    <a href="{{ path('app_visa_edit', {'id': visa.id})}}" class="btn btn-sm btn-success">
+                                    <i class="fas fa-pencil-alt"></i> Modifier
+                                    </a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                
+            {% endfor %} 
+              
+          </div>
 
-    <a href="{{ path('app_visa_new') }}">Create new</a>
+          <h4 class="mt-5"> Visas de vol départ</h4>
+          <div class="row ">
+             {% for visa in visas %}
+                {% if visa.type != 'A' %}
+                    <div class="col-12 col-sm-6 col-md-3 ">
+
+                        <div class="card bg-light">
+                            <div class="card-body pt-0">
+                                    <h2 class="lead"><b>{{visa.intitule}}</b></h2>
+                                    <p class="text-muted text-sm"><b> Remarques :</b> {{visa.remarque ? : '(Pas de remarque)'}} </p>  
+                            </div>
+                            <div class="card-footer">
+                                <div class="text-center">
+                                    <a href="{{ path('app_visa_edit', {'id': visa.id})}}" class="btn btn-sm btn-success">
+                                    <i class="fas fa-pencil-alt"></i> Modifier
+                                    </a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+                
+            {% endfor %} 
+              
+          </div>
+           
+        </div>
+
+        
+        <!-- /.card-body -->
+        <div class="card-footer">
+          <a href="/visa/new" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i> Ajouter un visa</a>
+        </div>
+        <!-- /.card-footer -->
+      </div>
+      <!-- /.card -->
+
+</section>
 {% endblock %}

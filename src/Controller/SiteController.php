@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Paf;
 use App\Entity\Site;
+use App\Form\PafType;
 use App\Form\SiteType;
+use App\Repository\PafRepository;
 use App\Repository\SiteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,7 +34,7 @@ class SiteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $siteRepository->add($site, true);
 
-            return $this->redirectToRoute('app_site_new', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_site_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('site/new.html.twig', [
@@ -40,10 +43,21 @@ class SiteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_site_show', methods: ['GET'])]
-    public function show(Site $site): Response
+    #[Route('/{id}', name: 'app_site_show', methods: ['GET', 'POST'])]
+    public function show(Request $request,Site $site, PafRepository  $pafRepository): Response
     {
-        return $this->render('site/show.html.twig', [
+        $paf = new Paf();
+        $paf->setSite($site);
+        $form = $this->createForm(PafType::class, $paf);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $pafRepository->add($paf, true);
+            return $this->redirectToRoute('app_site_show', ['id'=>$site->getId()], Response::HTTP_SEE_OTHER);
+        }
+        return $this->renderForm('site/show.html.twig', [
+            'paf' => $paf,
+            'form' => $form,
             'site' => $site,
         ]);
     }

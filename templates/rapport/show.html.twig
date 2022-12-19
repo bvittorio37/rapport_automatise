@@ -1,42 +1,201 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrivées</title>
+    <style>
+        body{
+            background-color: #F6F6F6; 
+            margin: 0;
+            padding: 0;
+        }
+        h1,h2,h3,h4,h5,h6{
+            margin: 0;
+            padding: 0;
+        }
+        p{
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            width: 80%;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        .brand-section{
+           background-color: #0d1033;
+           padding: 10px 40px;
+        }
+        .logo{
+            width: 50%;
+        }
 
-{% block title %}Rapport{% endblock %}
+        .row{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .col-6{
+            width: 50%;
+            flex: 0 0 auto;
+        }
+        .text-white{
+            color: #fff;
+        }
+        .bg-grey{
+            background-color: #dee2e6;
+        }
+        .company-details{
+            float: right;
+            text-align: right;
+        }
+        .body-section{
+            padding: 16px;
+            border: 1px solid gray;
+        }
+        .heading{
+            font-size: 20px;
+            margin-bottom: 08px;
+        }
+        .sub-heading{
+            color: #262626;
+            margin-bottom: 05px;
+        }
+        table{
+            background-color: #fff;
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table thead tr{
+            border: 1px solid #111;
+            background-color: #f2f2f2;
+        }
+        table td {
+            vertical-align: middle !important;
+            text-align: center;
+        }
+        table th, table td {
+            padding-top: 08px;
+            padding-bottom: 08px;
+            font-size: 11px;
+        }
 
-{% block body %}
-    <h1>Rapport</h1>
+        .table-bordered{
+            box-shadow: 0px 0px 5px 0.5px gray;
+        }
+        .table-bordered td, .table-bordered th {
+            border: 1px solid #dee2e6;
+        }
+        .text-right{
+            text-align: end;
+        }
+        .w-20{
+            width: 20%;
+        }
+        .w-10{
+            width: 10%;
+        }
+        .w-30{
+            width: 30%;
+        }
+        .w-70{
+            width: 70%;
+        }
+        .float-right{
+            float: right;
+        }
+    </style>
+</head>
+<body>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ rapport.id }}</td>
-            </tr>
-            <tr>
-                <th>NumeroVol</th>
-                <td>{{ rapport.numeroVol }}</td>
-            </tr>
-            <tr>
-                <th>DateRapport</th>
-                <td>{{ rapport.dateRapport ? rapport.dateRapport|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>DatePrevue</th>
-                <td>{{ rapport.datePrevue ? rapport.datePrevue|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>DateVol</th>
-                <td>{{ rapport.dateVol ? rapport.dateVol|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Remarque</th>
-                <td>{{ rapport.remarque }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container">
+        <div class="brand-section">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="text-white">RAPPORT {{rapport.typeRapport}}</h1>
+                </div>
+            </div>
+        </div>
+        <div class="body-section">
+            <div class="row">
+                <div class="col-6">
+                    <h2 class="heading"> Tech: {{rapport.utilisateur.noms}} {{rapport.utilisateur.prenoms}}</h2>
+                    <p class="sub-heading"> No: {{rapport.utilisateur.noMat}} </p>
+                    <p class="sub-heading">Le: {{rapport.dateRapport|date('Y/m/d') }}  </p>
+                    <p class="sub-heading">Email : {{rapport.utilisateur.email}} </p>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="body-section">
+                        <table class="table-bordered">
+                            <thead>
+                                <tr>
+                                    <th colspan="6" class="text-center">{{rapport.typeRapport}}</th>
+                                   
+                            </thead>
+                            <tbody>
+                                {# <tr>
+                                    <th>Heure Prévu d'arrivée </th>
+                                    <td></td>
+                                    <th>Retard (min) </th>
+                                    <td class="w-20"></td>
+                                    <th> </th>
+                                    <td class="w-20"></td>
+                                </tr>
+                                <tr>
+                                    <th>N° de vol  </th>
+                                    <td> - </td>
+                                </tr>
+                                <tr>
+                                    <th>Durée de traitement de vol </th>  
+                                    <td> - </td>
+                                </tr> #}
+                                <tr>
+                                {% set total = 0 %}
+                                    {% for visa in rapport.visaParRapports %}
+                                        {% set total = total + visa.nombre %}
+                                    {% endfor %}
+                                    <th class="w-70" >Nb de passagers ayant reçu le VISA touristique  </th>  
+                                    <td>{{ total }}</td>
+                                    
+                                </tr>
 
-    <a href="{{ path('app_rapport_index') }}">back to list</a>
+                            </tbody>
+                        </table>            
+                    <br>
+                     <div class="row">
+                        <div class="col-6">
+                           <table class="table-bordered">
+                                <tbody>
+                                {% for visa in rapport.visaParRapports %}
+                                    <tr>
+                                        <th>{{visa.visa.intitule}} </th>
+                                        <td>{{visa.nombre}}</td>
+                                    </tr>
+                                {% endfor %} 
+                                    <tr>
+                                        <th colspan="2" class="bg-grey" >Commentaires </th>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" >{{rapport.remarque ? rapport.remarque  : ' (Pas de commentaires)' }} </td>
+                                    </tr>
 
-    <a href="{{ path('app_rapport_edit', {'id': rapport.id}) }}">edit</a>
+                                </tbody>
+                            </table> 
+                        </div>
 
-    {{ include('rapport/_delete_form.html.twig') }}
-{% endblock %}
+                    </div>
+        </div>
+           
+    </div>      
+
+</body>
+</html>
+               
+                    
+                        
+                        
+                        
+
+                     

@@ -1,9 +1,9 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="{{asset('assets/dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      <img src="{{asset('assets/dist/img/logo_evisa.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+       <span class="brand-text font-weight-light">Evisa</span> 
     </a>
 
     <!-- Sidebar -->
@@ -11,7 +11,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{asset('assets/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{asset('assets/dist/img/user2-160x160.png')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ app.user}}</a>
@@ -21,17 +21,7 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
 
-          {# <li class="nav-item">
-            <a href="{{path('app_utilisateur')}}" class="nav-link">
-              <i class="nav-icon fa fa-users"></i>
-              <p>
-                Utilisateurs
-              </p>
-            </a>
-          </li> #}
         {% if is_granted('ROLE_ADMIN') %}
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link ">
@@ -49,59 +39,71 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{path('affectation_historique')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Affectation</p>
+                  <p>Historique</p>
                 </a>
               </li>
             </ul>
           </li>
                      <li class="nav-item has-treeview">
             <a href="#" class="nav-link ">
-              <i class="nav-icon fa fa-users"></i>
+              <i class="nav-icon fas fa-cog"></i>
               <p>
                 Gestion des éléments
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
+              
               <li class="nav-item">
-                <a href=" {{path('app_paf_new')}}" class="nav-link">
+                <a href=" {{path('app_site_index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Paf</p>
+                  <p>Sites</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href=" {{path('app_site_new')}}" class="nav-link">
+              <li class="nav-item ">
+                <a href="{{path('app_departement_index')}}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Site</p>
+                  <p>Départements</p>
+                  {# <i class="right fas fa-angle-left"></i> #}
                 </a>
+                {# <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>liste</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>ajout</p>
+                    </a>
+                  </li>
+                </ul> #}
               </li>
               <li class="nav-item">
-                <a href=" {{path('app_type_stock_new')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Type de Stock</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{path('app_type_rapport_new')}}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Type de Rapport</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href=" {{path('app_visa_new')}}" class="nav-link">
+                <a href=" {{ path('app_visa_index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Visa</p>
                 </a>
               </li>
             </ul>
           </li>
+          <li class="nav-item ">
+              <a href=" {{path('app_rapport_liste')}} " class="nav-link ">
+                <i class="nav-icon fas fa-book"></i>
+                <p>
+                  Rapports
+                </p>
+              </a>
+          </li>
           {% endif %}
           {% if is_granted('ROLE_TECHNICIEN') %}
             <li class="nav-item has-treeview">
               <a href="h.html" class="nav-link ">
-                <i class="nav-icon fa fa-users"></i>
+                <i class="nav-icon fas fa-book"></i>
                 <p>
                   Rapports
                   <i class="right fas fa-angle-left"></i>
@@ -127,7 +129,7 @@
 
           <li class="nav-item">
             <a href="{{path('etat_stock')}}" class="nav-link">
-              <i class="fas fa-circle nav-icon"></i>
+              <i class="nav-icon fas fa-chart-pie"></i>
               <p>Etat de stock</p>
             </a>
           </li>
@@ -136,7 +138,7 @@
         
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link ">
-              <i class="nav-icon fa fa-users"></i>
+              <i class="nav-icon fas fa-th"></i>
               <p>
                 Materiel
                 <i class="right fas fa-angle-left"></i>
@@ -159,7 +161,8 @@
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link ">
-              <i class="nav-icon fa fa-users"></i>
+              {# <i class="nav-icon fa fa-users "></i> #}
+              <i class=" nav-icon fa  fa-cloud-download-alt"></i>
               <p>
                 Stock Materiel
                 <i class="right fas fa-angle-left"></i>

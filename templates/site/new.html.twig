@@ -12,31 +12,36 @@ Site
         <div class="row">
             <!-- left column -->
             <div class="col-md-12">
-                <div class="card card-primary">
-                <div class="card-header">
-                    <h1 class="card-title">Ajouter une nouvelle site</h1>
-                </div>
-                <!-- /.card-header -->
-                <!-- form start -->
-                {{ form_start(form) }}
-                    <div class="card-body">
-                    <div class="form-group">
-                         {{ form_row(form.lieu,{label: 'Lieu:', 'attr': {'class': 'form-control'}}) }}
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h1 class="card-title">Ajouter une nouvelle site</h1>
                     </div>
-                    <div class="form-group">
-                         {{ form_row(form.remarque, {label: 'Remarque'}) }}
-                    </div>
-                    <div class="form-group">
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    {{ form_start(form) }}
+                        <div class="card-body">
+                            <div class="form-group">
+                                {{ form_row(form.lieu,{label: 'Lieu:', 'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_row(form.remarque, {label: 'Remarque'}) }}
+                            </div>   
+                        </div>
+                        
 
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Ajouter</button>
-                    </div>
-                {{ form_end(form) }}
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary float-right"><i class="fas fa-plus"></i> Ajouter</button>
+                        
+                            <a href=" /site/" class="btn btn-default "><i class="right fas fa-angle-left"></i> Retour</a>
+                        
+                        </div>
+                    {{ form_end(form) }}
                 </div>
             </div>
             <!-- /.card -->
         </div>
+    </div>
 </section>
 
 

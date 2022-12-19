@@ -37,16 +37,29 @@ Envoie Mail
                             {{ form_row(form.message, {label: "Message:",'attr': {'placeholder': 'Votre message...'}}) }}
                         </div>
                     </div>
+                </div>
                 <!-- /.card-body -->
-                    <div class="card-footer">
-                    <div class="float-right">
-                    <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Envoyer</button>
+                    <div class="card-footer bg-white">
+                        <ul class="mailbox-attachments d-flex align-items-stretch clearfix">
+                           {% for nomPdf in nomsPdf %}
+                            <li>
+                                <span class="mailbox-attachment-icon"><i class="far fa-file-pdf"></i></span>
+
+                                <div class="mailbox-attachment-info">
+                                    <a href="#" class="mailbox-attachment-name"><i class="fas fa-paperclip"></i> {{nomPdf}}.pdf</a>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
                     </div>
-                    <button  class="btn btn-default"><i class="fas fa-times"></i> Annuler</button>
+                    <div class="card-footer">
+                        <div class="float-right">
+                            <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Envoyer</button>
+                        </div>
                     </div>
                 <!-- /.card-footer -->
               {{ form_end(form) }}
-                </div>
+                
             </div>
             <!-- /.card -->
         </div>

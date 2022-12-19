@@ -73,33 +73,25 @@ Acceuil
             <div class="card">
               <div class="card-header">
                 <h5 class="card-title">Etat de stock 
-                    {% if etatStock  %}
-                        ( {{etatStock[0]['sita']}})
-                    {% endif %}
+                    ({{lieu}})
                     </h5>
-
+              {% if is_granted('ROLE_MAGASINIER') %}
                 <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown">
-                      <i class="fas fa-wrench"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right" role="menu">
-                      <a href="#" class="dropdown-item">Action</a>
-                      <a href="#" class="dropdown-item">Another action</a>
-                      <a href="#" class="dropdown-item">Something else here</a>
-                      <a class="dropdown-divider"></a>
-                      <a href="#" class="dropdown-item">Separated link</a>
+                      
+                            {{ form_start(form) }}
+                            
+                            {{ form_row(form.site)}}
+                           {#  <input type="text" name="table_search" class="form-control float-right" placeholder="Recherche"> #}
+
+                            <div class="input-group-append mb-3">
+                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            </div>
+                            {{ form_end(form) }}
                     </div>
-                  </div>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
+                  {% endif %}
               </div>
               <!-- /.card-header -->
+      
               <div class="card-body">
                 <div class="row">
                   
@@ -109,8 +101,8 @@ Acceuil
                       <strong> Vignettes  </strong>
                     </p>
                 
-                {% for key, etat in etatStock %}
-                        {% if etat['paf']  %}
+                {% for etat in etatStock.etiquette %}
+                        
                     <div class="progress-group">
                        {{ etat['paf'] }}
                       <span class="float-right"><b>{{ etat['état'] }}</b>/500</span>
@@ -119,7 +111,7 @@ Acceuil
                       </div>
                     </div>
                       
-                        {% endif %}
+                        
                         
                     {% endfor %}
                   </div>
@@ -131,16 +123,20 @@ Acceuil
               <div class="card-footer">
                 <div class="row">
                
-                {% for materiel in etatStock %}
-                   {% if not materiel['paf']  %}
+                {% for autre in etatStock.autres %}
+                    {% if autre.materiel == 'Ram Papier A5' %}
+                        {% set etat = autre.état  %}
+                    {% else %}
+                         {% set etat = autre.état  %}
+                    {% endif %}
                   <div class="col-sm-4 col-6">
                     <div class="description-block border-right">
                       <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> {# {{ //materiel['état'] }} #}</span>
-                      <h5 class="description-header">{{ materiel.état }} %</h5>
-                      <span class="description-text"> {{ materiel.materiel }} </span>
+                      <h5 class="description-header">{{ etat }}</h5>
+                      <span class="description-text"> {{ autre.materiel }} </span>
                     </div>
                 </div>
-                    {% endif %}
+                    
                 {% endfor %}
                     <!-- /.description-block -->
                   

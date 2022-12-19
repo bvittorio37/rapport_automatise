@@ -12,9 +12,9 @@
         <div class="row">
             <!-- left column -->
             <div class="col-md-12">
-                <div class="card card-primary">
+                <div class="card card-primary card-outline">
                         <div class="card-header">
-                            <h1 class="card-title">Approvisionner un Site</h1>
+                            <h1 class="card-title">Effectuer un rapport d'etat de stock </h1>
                         </div>
                         <div class="card-body">
                           {{ form_start(form) }}
@@ -72,7 +72,26 @@
                                     {% endif %}
 
                             {% endfor %}
-                                <button type="submite" class="btn btn-block btn-success btn-lg" >Suivant</button>
+                             <div calss="form-group col-4 offset-4 ">
+                        <button type="button" class="btn btn-block btn-success btn-lg" data-toggle="modal" data-target="#modal-sm" >Suivant</button>
+                    </div>
+                    <div class="modal fade" id="modal-sm">
+                          <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h6 class="modal-title">Voulez vous vraimenet enregistrer ?</h6>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                               
+                              <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                                <button type="submit" class="btn btn-primary">Valider</button>
+                              </div>
+                            </div>
+                            <!-- /.modal-content -->
+                    </div>
                             {{ form_end(form) }}
                         </div>
                 </div>
